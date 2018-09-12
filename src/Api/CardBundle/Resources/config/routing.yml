@@ -1,3 +1,20 @@
 api_card:
   path: /
-  defaults: {_controller: ApiCardBundle:Default:root}
+  defaults: { _controller: ApiCardBundle:Default:root}
+
+api_card_city_add:
+  path: /card/add
+  defaults: { _controller: ApiCardBundle:Card:addCard}
+  methods: [POST]
+
+api_card_card:
+  path: /card
+  defaults: { _controller: ApiCardBundle:Card:index}
+  methods: [GET, HEAD]
+
+api_card_getbyid:
+  path: /card/{id}
+  defaults: { _controller: ApiCardBundle:Card:getById}
+  methods: [GET, HEAD]
+  requirements:
+        id: \d+

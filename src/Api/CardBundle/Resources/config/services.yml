@@ -2,3 +2,9 @@ services:
    api_card.cardservice:
        class: Api\CardBundle\CardService\CardService
        arguments: [ "@doctrine.orm.entity_manager",%secret% ]
+   api_card.exeption_listener:
+    class: Api\CardBundle\EventListener\ExceptionListener
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception }
+   api_card.token_authenticator:
+    class: Api\CardBundle\Security\TokenAuthenticator
