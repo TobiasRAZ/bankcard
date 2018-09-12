@@ -56,7 +56,16 @@ class DefaultController extends Controller {
 						'desc' => 'remove selected card'
 					),
 				),
-					'version' => '0.0.1'
+				'informations' => array(
+					'api' => array(
+						'description' => 'bank card API',
+						'version' => '0.0.1'
+					),
+					'author' => array(
+						'team' => 'Eqima',
+						'website' => 'https://byeqima.com'
+					)
+				),
 			));
     }
 
