@@ -31,13 +31,29 @@ class DefaultController extends Controller {
 						),
 						'desc' => 'return card by id'
 					),
-					'api/city/add' => array(
+					'api/card/add' => array(
 						'methods' => '[POST]',
 						'args' => array(
 							'cardNumber' => 'string',
 							'pin' => 'int'
 						),
 						'desc' => 'add card'
+					),
+					'api/card/{id}/update' => array(
+						'methods' => '[PUT]',
+						'args' => array(
+							'id' => 'int',
+							'cardNumber' => 'string',
+							'pin' => 'int',
+						),
+						'desc' => 'update selected card'
+					),
+					'api/card/{id}' => array(
+						'methods' => '[DELETE]',
+						'args' => array(
+							'id' => 'int'
+						),
+						'desc' => 'remove selected card'
 					),
 				),
 					'version' => '0.0.1'

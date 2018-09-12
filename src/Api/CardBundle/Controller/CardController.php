@@ -49,4 +49,22 @@ class CardController extends DefaultController {
 		$card = $this->getService()->add($card);
 		return new JsonResponse(array('success' => $card));
 	}
+
+	/**
+	 * Update Card
+	 */
+	public function updateCardAction(Request $req, $id)
+	{
+		$data['id'] = $id;
+        $data['cardNumber'] = $req->request->get('cardNumber');
+        $data['pin'] = $req->request->get('pin');
+        $card = $this->getService()->update($data);
+        return new JsonResponse(array('success' => $card));
+	}
+
+	public function deleteCardAction($id)
+	{
+		$card = $this->getService()->delete($id);
+        return new JsonResponse(array('success' => $card));
+	}
 }

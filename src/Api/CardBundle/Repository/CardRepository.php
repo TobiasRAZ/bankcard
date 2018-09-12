@@ -34,4 +34,28 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		$em->flush();
 		if(null !== $data->getId()) return 1;
 	}
+
+	public function update($data) {
+	    $qb = $this->createQueryBuilder('c');
+		$q = $qb->update()
+		    ->set('c.cardNumber', ':cardNumber')
+		    ->set('c.pin', ':pin')
+		    ->setParameter('cardNumber', $data['cardNumber'])
+		    ->setParameter('pin', $data['pin'])
+		    ->where("c.id = :id")
+		    ->setParameter('id', (int)$data['id'])
+		    ->getQuery();
+		$card = $q->execute();
+		return $card;
+	}
+
+	public function delete($id) {
+	    $qb = $this->createQueryBuilder('c')
+		    ->delete()
+		    ->where("c.id = :id")
+		    ->setParameter('id', $id)
+		    ->getQuery();
+		$card = $qb->execute();
+		return $card;
+	}
 }
