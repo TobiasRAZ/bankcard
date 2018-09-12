@@ -6,6 +6,10 @@ security:
     providers:
         in_memory:
             memory: ~
+        webservice:
+            entity:
+                class: ApiCardBundle:User
+                property: apiKey
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,7 +18,12 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/api/
+            provider: webservice
+            guard:
+                authenticators:
+                    - api_card.token_authenticator
+            # anonymous: ~
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
