@@ -19,12 +19,11 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		    ->getArrayResult();
 	}
 
-	public function getById($id)
-	{
-		return $this
-			->createQueryBuilder('c')
-			->where("c.id = :id")
-			->createQueryBuilder('c')
+	public function getById($id) {
+	    return $this
+		    ->createQueryBuilder('c')
+		    ->where("c.id = :id")
+		    ->setParameter('id', $id)
 		    ->getQuery()
 		    ->getArrayResult();
 	}

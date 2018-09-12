@@ -22,8 +22,8 @@ class CardController extends DefaultController {
 	 * Get card by id
 	 */
 	public function getByIdAction($id) {
-		$city = $this->getService()->getById($id);
-		return new JsonResponse(city);
+		$card = $this->getService()->getById($id);
+		return new JsonResponse($card);
 	}
 
 	/**
