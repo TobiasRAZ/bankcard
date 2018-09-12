@@ -95,5 +95,27 @@ class User implements UserInterface
     {
         return $this->apiKey;
     }
+
+    public function getRoles()
+    {
+        return array(
+                'API_COSTOMMER'
+            );
+    }
+
+    public function getSalt()
+    {
+        
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function getPassword()
+    {
+        
+    }
 }
 
