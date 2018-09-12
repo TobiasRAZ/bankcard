@@ -3,6 +3,8 @@
 namespace Api\CardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * user
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Api\CardBundle\Repository\userRepository")
  */
-class user
+class User implements UserInterface
 {
     /**
      * @var int
