@@ -1,0 +1,3 @@
+api_card:
+  path: /
+  defaults: {_controller: ApiCardBundle:Default:root}
