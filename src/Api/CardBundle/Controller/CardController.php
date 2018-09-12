@@ -2,10 +2,10 @@
 
 namespace Api\CardBundle\Controller;
 
-use Api\VtcBundle\Entity\Card;
+use Api\CardBundle\Entity\Card;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Api\VtcBundle\Controller\DefaultController;
+use Api\CardBundle\Controller\DefaultController;
 
 class CardController extends DefaultController {
 	protected $_entity = 'Card';
@@ -35,7 +35,7 @@ class CardController extends DefaultController {
 		$card->setPin($req->request->get('pin'));
 		
 		$validator = $this->get('validator');
-		$errors = validator->validate($card);
+		$errors = $validator->validate($card);
 
 		$validationError = array();
 		if (count($errors) > 0) {

@@ -1,8 +1,4 @@
 api_card:
-    resource: "@ApiCardBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: "@ApiCardBundle/Resources/config/routing.yml"
+    prefix:   /api
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation

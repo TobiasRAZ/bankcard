@@ -1,5 +1,5 @@
 <?php
-namespace Api\VtcBundle\EventListener;
+namespace Api\CardBundle\EventListener;
  
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;

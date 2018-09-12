@@ -13,7 +13,7 @@ class CardService {
 	}
 
 	public function getRepo($repositoryName) {
-        $repo = $this->_em->getRepository("ApiVtcBundle:$repositoryName");
+        $repo = $this->_em->getRepository("ApiCardBundle:$repositoryName");
         return $repo;
 	}
 

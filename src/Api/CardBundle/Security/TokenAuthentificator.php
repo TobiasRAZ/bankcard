@@ -1,5 +1,5 @@
 <?php
-namespace Api\VtcBundle\Security;
+namespace Api\CardBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
