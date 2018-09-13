@@ -24,14 +24,14 @@ class Card
     /**
      * @var string
      *
-     * @ORM\Column(name="cardNumber", type="string", length=255)
+     * @ORM\Column(name="cardNumber", type="string", length=50)
      */
     private $cardNumber;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="pin", type="integer")
+     * @ORM\Column(name="pin", type="string", length=4)
      */
     private $pin;
 
@@ -39,7 +39,7 @@ class Card
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -51,7 +51,7 @@ class Card
      *
      * @param string $cardNumber
      *
-     * @return card
+     * @return Card
      */
     public function setCardNumber($cardNumber)
     {
@@ -73,9 +73,9 @@ class Card
     /**
      * Set pin
      *
-     * @param integer $pin
+     * @param string $pin
      *
-     * @return card
+     * @return Card
      */
     public function setPin($pin)
     {
@@ -87,11 +87,10 @@ class Card
     /**
      * Get pin
      *
-     * @return int
+     * @return string
      */
     public function getPin()
     {
         return $this->pin;
     }
 }
-
