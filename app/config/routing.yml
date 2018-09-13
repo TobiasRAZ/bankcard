@@ -2,3 +2,6 @@ api_card:
     resource: "@ApiCardBundle/Resources/config/routing.yml"
     prefix:   /api
 
+api_card_home:
+  path: /
+  defaults: { _controller: ApiCardBundle:Home:index}

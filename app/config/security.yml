@@ -18,12 +18,12 @@ security:
             security: false
 
         main:
-            # pattern: ^/api/
-            # provider: webservice
-            # guard:
-            #     authenticators:
-            #         - api_card.token_authenticator
-            anonymous: ~
+            pattern: ^/api/card
+            provider: webservice
+            guard:
+                authenticators:
+                    - api_card.token_authenticator
+            #anonymous: ~
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
