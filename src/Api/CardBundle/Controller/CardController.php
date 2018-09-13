@@ -27,6 +27,29 @@ class CardController extends DefaultController {
 	}
 
 	/**
+	 * Get specific field for selected card
+	 */
+	public function getCardFieldAction($id,$field)
+	{
+		$card = $this->getService()->getById($id);
+
+		$_card = new Card();
+		$_card->setPin($card[0]['pin']);
+		$_card->setCardNumber($card[0]['cardNumber']);
+
+		$getter = 'get'.ucfirst($field);
+		
+		if (method_exists($_card, $getter)) {
+			$value = $_card->$getter();
+			return $this->reponse(array('id' => $id, $field => $value));
+		}
+		else{
+			return $this->reponse('error');
+		}
+
+	}
+
+	/**
 	 * Add new card
 	 */
 	public function addCardAction(Request $req) {

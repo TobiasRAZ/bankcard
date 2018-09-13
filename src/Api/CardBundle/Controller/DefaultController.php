@@ -31,6 +31,14 @@ class DefaultController extends Controller {
 						),
 						'desc' => 'return card by id'
 					),
+					'api/card/{id}/{field}' => array(
+						'methods' => '[GET,HEAD]',
+						'args' => array(
+							'id' => 'int',
+							'field' => 'string'
+						),
+						'desc' => 'return card with the specific field'
+					),
 					'api/card/add' => array(
 						'methods' => '[POST]',
 						'args' => array(
@@ -44,7 +52,7 @@ class DefaultController extends Controller {
 						'args' => array(
 							'id' => 'int',
 							'cardNumber' => 'string',
-							'pin' => 'int',
+							'pin' => 'string',
 						),
 						'desc' => 'update selected card'
 					),
@@ -58,6 +66,7 @@ class DefaultController extends Controller {
 				),
 				'informations' => array(
 					'api' => array(
+						'url' => $this->get('request')->getSchemeAndHttpHost() . "/api",
 						'description' => 'bank card API',
 						'version' => '0.0.1'
 					),

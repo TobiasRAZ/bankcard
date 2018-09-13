@@ -32,3 +32,11 @@ api_card_delete:
     methods: [DELETE]
     requirements:
         id: \d+
+
+api_card_getfield:
+  path: /card/{id}/{field}
+  defaults: { _controller: ApiCardBundle:Card:getCardField}
+  methods: [GET, HEAD]
+  requirements:
+        id: \d+
+        field: \s+
