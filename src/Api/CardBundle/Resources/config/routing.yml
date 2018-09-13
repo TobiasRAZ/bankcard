@@ -2,7 +2,7 @@ api_card:
   path: /
   defaults: { _controller: ApiCardBundle:Default:root}
 
-api_card_city_add:
+api_card_add:
   path: /card/add
   defaults: { _controller: ApiCardBundle:Card:addCard}
   methods: [POST]
@@ -17,4 +17,18 @@ api_card_getbyid:
   defaults: { _controller: ApiCardBundle:Card:getById}
   methods: [GET, HEAD]
   requirements:
+        id: \d+
+
+api_card_update:
+    path:     /card/{id}/update
+    defaults: { _controller: ApiCardBundle:Card:updateCard }
+    methods: [PUT]
+    requirements:
+        id: \d+
+
+api_card_delete:
+    path:     /card/{id}
+    defaults: { _controller: ApiCardBundle:Card:deleteCard }
+    methods: [DELETE]
+    requirements:
         id: \d+

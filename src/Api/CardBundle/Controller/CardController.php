@@ -15,7 +15,7 @@ class CardController extends DefaultController {
 	 */
 	public function indexAction() {
 		$cards = $this->getService()->getAll();
-		return new JsonResponse($cards);
+		return $this->reponse($cards);
 	}
 
 	/**
@@ -23,7 +23,7 @@ class CardController extends DefaultController {
 	 */
 	public function getByIdAction($id) {
 		$card = $this->getService()->getById($id);
-		return new JsonResponse($card);
+		return $this->reponse($card);
 	}
 
 	/**
@@ -31,8 +31,10 @@ class CardController extends DefaultController {
 	 */
 	public function addCardAction(Request $req) {
 		$card = new Card();
-		$card->setCardNumber($req->request->get('cardNumber'));
-		$card->setPin($req->request->get('pin'));
+		$data['cardNumber'] = $req->request->get('cardNumber');
+		$data['pin'] = $req->request->get('pin');
+		$card->setCardNumber($data['cardNumber']);
+		$card->setPin($data['pin']);
 		
 		$validator = $this->get('validator');
 		$errors = $validator->validate($card);
@@ -44,10 +46,21 @@ class CardController extends DefaultController {
 				$err['parameter'] = $value->getPropertyPath();
 				array_push($validationError, $err);
 			}
-			return new JsonResponse($validationError);
+			return $this->reponse($validationError);
 		}
-		$card = $this->getService()->add($card);
-		return new JsonResponse(array('success' => $card));
+
+		$failure = $this->validateCard($data);
+
+		if (failure == false) {
+			$card = $this->getService()->add($card);
+			return $this->reponse(array('success' => $card));
+		}
+
+		else{
+			return $this->failure;
+		}
+
+		
 	}
 
 	/**
@@ -55,16 +68,63 @@ class CardController extends DefaultController {
 	 */
 	public function updateCardAction(Request $req, $id)
 	{
+		$errors = array();
+		$failure = false;
 		$data['id'] = $id;
         $data['cardNumber'] = $req->request->get('cardNumber');
         $data['pin'] = $req->request->get('pin');
-        $card = $this->getService()->update($data);
-        return new JsonResponse(array('success' => $card));
+
+        $failure = $this->validateCard($data);
+
+        if ($failure == false) {
+        	$card = $this->getService()->update($data);
+	        return $this->reponse(array('success' => $card));
+        }
+
+        else{
+        	return $this->reponse($failure);
+        }
+
 	}
 
+	/**
+	 * Delete card
+	 */
 	public function deleteCardAction($id)
 	{
 		$card = $this->getService()->delete($id);
-        return new JsonResponse(array('success' => $card));
+        return $this->reponse(array('success' => $card));
+	}
+
+	/**
+	 * Return Json Reponse
+	 */
+	private function reponse($content)
+	{
+		return new JsonResponse($content);
+	}
+
+	/**
+	 * Verify card before saving
+	 */
+	private function validateCard($data)
+	{
+		$errors = array();
+		$failure = false;
+		if (strlen($data['cardNumber']) != 16) {
+        	$failure = true;
+        	array_push($errors,array('error' => 'Card number is not a length number 16'));
+        }
+        if (strlen($data['pin']) != 4) {
+        	$failure = true;
+        	array_push($errors,array('error' => 'PIN is not a length number 4'));
+        }
+        if ($failure == true) {
+        	$return = $errors;
+        }
+        else{
+        	$return = $failure;
+        }
+        return $return;
 	}
 }
