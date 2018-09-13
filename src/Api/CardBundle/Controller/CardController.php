@@ -27,9 +27,9 @@ class CardController extends DefaultController {
 	}
 
 	/**
-	 * Get specific field for selected card
+	 *  Get specific field for selected card
 	 */
-	public function getCardFieldAction($id,$field)
+	public function getCardFieldAction($id,$fields)
 	{
 		$card = $this->getService()->getById($id);
 
@@ -37,15 +37,16 @@ class CardController extends DefaultController {
 		$_card->setPin($card[0]['pin']);
 		$_card->setCardNumber($card[0]['cardNumber']);
 
-		$getter = 'get'.ucfirst($field);
+		$getter = 'get'.ucfirst($fields);
 		
 		if (method_exists($_card, $getter)) {
 			$value = $_card->$getter();
-			return $this->reponse(array('id' => $id, $field => $value));
+			return $this->reponse(array('id' => $id, $fields => $value));
 		}
 		else{
 			return $this->reponse('error');
 		}
+
 
 	}
 
@@ -74,13 +75,23 @@ class CardController extends DefaultController {
 
 		$failure = $this->validateCard($data);
 
-		if (failure == false) {
+		if ($failure == false) {
 			$card = $this->getService()->add($card);
-			return $this->reponse(array('success' => $card));
+			//return $this->reponse(array('success' => $card));
+			$message = array();
+			if ($card == 1) {
+				$message['status'] = 'success';
+				$message['message'] = 'Saving successful';
+			}
+			else{
+				$message['status'] = 'error';
+				$message['message'] = 'Saving error';
+			}
+			return $this->reponse($message);
 		}
 
 		else{
-			return $this->failure;
+			return $this->reponse($failure);
 		}
 
 		
@@ -101,7 +112,17 @@ class CardController extends DefaultController {
 
         if ($failure == false) {
         	$card = $this->getService()->update($data);
-	        return $this->reponse(array('success' => $card));
+	        //return $this->reponse(array('success' => $card));
+	        $message = array();
+	        if ($card == 1) {
+	        	$message['status'] = 'success';
+	        	$message['message'] = 'Updating successful';
+	        }
+	        else{
+	        	$message['status'] = 'error';
+	        	$message['message'] = 'Updating error';
+	        }
+	        return $this->reponse($message);
         }
 
         else{

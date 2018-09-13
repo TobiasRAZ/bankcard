@@ -33,8 +33,8 @@ api_card_delete:
     requirements:
         id: \d+
 
-api_card_getfield:
-  path: /card/{id}/{field}
+api_card_field:
+  path: /card/{id}/{fields}
   defaults: { _controller: ApiCardBundle:Card:getCardField}
   methods: [GET, HEAD]
   requirements:
