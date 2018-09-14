@@ -116,8 +116,8 @@ class CardController extends DefaultController {
 	 */
 	public function deleteCardAction($id)
 	{
-		$card = $this->getService()->delete($id);
-        return $this->reponse(array('success' => $card));
+		$reponse = $this->getService()->delete($id);
+        return $this->reponse(array($reponse));
 	}
 
 	/**

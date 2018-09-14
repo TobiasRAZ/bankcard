@@ -90,7 +90,21 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		    ->where("c.id = :id")
 		    ->setParameter('id', $id)
 		    ->getQuery();
-		$card = $qb->execute();
-		return $card;
+		//return $card;
+		try{
+			$card = $qb->execute();		
+        	if ($card == 1) {
+        		$message['success'] = $card;
+        		$message['message'] = 'Deleting successful';
+        	}
+        	else{
+        		$message['success'] = $card;
+        		$message['message'] = 'Can not delete an index that does not exist in the database';
+        	}
+		} catch(Exception $e){
+			$message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+		}
+		return $message;
 	}
 }
