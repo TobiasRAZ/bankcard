@@ -39,6 +39,13 @@ class User implements UserInterface
 
 
     /**
+     * @var srting
+     * @ORM\Column(name="roles", type="json_array")
+     */
+    private $roles = [];
+
+
+    /**
      * Get id
      *
      * @return int
@@ -96,16 +103,24 @@ class User implements UserInterface
         return $this->apiKey;
     }
 
+    
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
     public function getRoles()
     {
-        return array(
-                'API_COSTOMMER'
-            );
+        $roles = $this->roles;
+        if (empty($roles)) {
+            $roles[] = 'ROLE_ADMINs';
+        }
+        return array_unique($roles);
     }
 
     public function getSalt()
     {
-        
+        return null;
     }
 
     public function eraseCredentials()
@@ -118,4 +133,3 @@ class User implements UserInterface
         
     }
 }
-

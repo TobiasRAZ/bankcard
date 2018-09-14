@@ -8,3 +8,5 @@ services:
       - { name: kernel.event_listener, event: kernel.exception }
    api_card.token_authenticator:
     class: Api\CardBundle\Security\TokenAuthenticator
+   api_card.access_denied_handler:
+    class: Api\CardBundle\Security\AccessDeniedHandler
