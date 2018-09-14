@@ -113,7 +113,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         if (empty($roles)) {
-            $roles[] = 'ROLE_ADMINs';
+            $roles[] = 'ROLE_ADMIN';
         }
         return array_unique($roles);
     }
