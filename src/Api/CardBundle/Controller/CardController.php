@@ -101,18 +101,8 @@ class CardController extends DefaultController {
         $failure = $this->validateCard($data);
 
         if ($failure == false) {
-        	$card = $this->getService()->update($data);
-	        //return $this->reponse(array('success' => $card));
-	        $message = array();
-	        if ($card == 1) {
-	        	$message['status'] = 'success';
-	        	$message['message'] = 'Updating successful';
-	        }
-	        else{
-	        	$message['status'] = 'error';
-	        	$message['message'] = 'Updating error';
-	        }
-	        return $this->reponse($message);
+        	$reponse = $this->getService()->update($data);
+        	return $this->reponse($reponse);
         }
 
         else{

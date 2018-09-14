@@ -67,8 +67,21 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		    ->where("c.id = :id")
 		    ->setParameter('id', (int)$data['id'])
 		    ->getQuery();
-		$card = $q->execute();
-		return $card;
+		try{
+			$card = $q->execute();
+            if ($card == 1) {
+            	$message['success'] = $card;
+            	$message['message'] = 'Updating successful';
+            }
+            else{
+            	$message['success'] = $card;
+            	$message['message'] = 'No update made, old values and new are equal';
+            }
+		} catch (Exception $e){
+			$message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+		}
+		return $message;
 	}
 
 	public function delete($id) {
