@@ -60,7 +60,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
         $data = array(
         	'error'	=> $exception->getCode(),
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => 'Invalid api key.'
+            // 'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
         );
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);

@@ -1,4 +1,5 @@
-bankcard
+Bank card API V0.0.1
 ========
 
-A Symfony project created on September 12, 2018, 10:20 am.
+apikey: thisisthedefaultapikeyforeqimauser
+
