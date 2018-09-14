@@ -2,6 +2,10 @@
 
 namespace Api\CardBundle\Repository;
 use Api\CardBundle\Entity\Card;
+use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\ORMException;
+use PDOException;
+use Exception;
 
 /**
  * cardRepository
@@ -30,9 +34,27 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 
 	public function add($data) {
 		$em = $this->_em;
-		$em->persist($data);
-		$em->flush();
-		if(null !== $data->getId()) return 1;
+		$message = array();
+		try{
+			$em->persist($data);
+			$em->flush();
+			$message['success'] = 1;
+			$message['message'] = 'Saving successful';
+		} catch (DBALException $e) {
+            $message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+        } catch (PDOException $e) {
+            $message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+        } catch (ORMException $e) {
+            $message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+        } catch (Exception $e) {
+            $message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+        }
+        return $message;
+		//if(null !== $data->getId()) return 1;
 	}
 
 	public function update($data) {
