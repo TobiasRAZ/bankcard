@@ -44,7 +44,11 @@ class CardController extends DefaultController {
 			return $this->reponse(array('id' => $id, $fields => $value));
 		}
 		else{
-			return $this->reponse('error');
+			$message = array(
+				'error' => 0,
+				'message' => 'Field ' . $fields . ' not found in Card'
+			);
+			return $this->reponse($message);
 		}
 
 
