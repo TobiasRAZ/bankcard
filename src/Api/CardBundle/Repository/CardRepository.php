@@ -24,12 +24,25 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 	}
 
 	public function getById($id) {
-	    return $this
-		    ->createQueryBuilder('c')
-		    ->where("c.id = :id")
-		    ->setParameter('id', $id)
-		    ->getQuery()
-		    ->getArrayResult();
+		$qb = $this->createQueryBuilder('c');
+		$q = $qb->where("c.id = :id")
+			    ->setParameter('id', $id)
+			    ->getQuery();
+		try{
+			$card = $q->getArrayResult();
+			if (!$card) {
+				$message['success'] = 0;
+				$message['message'] = 'Can not find an index that does not exist in the database';
+			}
+			else{
+				$message = $card;
+			}
+		} catch (Exception $e){
+			$message['error'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+		}
+
+		return $message;
 	}
 
 	public function add($data) {
