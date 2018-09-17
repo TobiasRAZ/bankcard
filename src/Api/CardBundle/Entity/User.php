@@ -42,7 +42,7 @@ class User implements UserInterface
      * @var srting
      * @ORM\Column(name="roles", type="json_array")
      */
-    private $roles = [];
+    private $roles = array();
 
 
     /**

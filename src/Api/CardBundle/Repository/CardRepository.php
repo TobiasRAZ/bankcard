@@ -6,7 +6,7 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\ORMException;
 use PDOException;
 use Exception;
-
+use Symfony\Component\HttpFoundation\Response;
 /**
  * cardRepository
  *
@@ -31,14 +31,14 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		try{
 			$card = $q->getArrayResult();
 			if (!$card) {
-				$message['success'] = 0;
+				$message['status'] = Response::HTTP_NO_CONTENT;
 				$message['message'] = 'Can not find an index that does not exist in the database';
 			}
 			else{
 				$message = $card;
 			}
 		} catch (Exception $e){
-			$message['error'] = $e->getCode();
+			$message['status'] = $e->getCode();
             $message['message'] = $e->getMessage();
 		}
 
@@ -51,19 +51,19 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		try{
 			$em->persist($data);
 			$em->flush();
-			$message['success'] = 1;
+			$message['status'] = Response::HTTP_CREATED;
 			$message['message'] = 'Saving successful';
 		} catch (DBALException $e) {
-            $message['error'] = $e->getCode();
+            $message['status'] = Response::HTTP_BAD_REQUEST;
             $message['message'] = $e->getMessage();
         } catch (PDOException $e) {
-            $message['error'] = $e->getCode();
+            $message['status'] = Response::HTTP_BAD_REQUEST;
             $message['message'] = $e->getMessage();
         } catch (ORMException $e) {
-            $message['error'] = $e->getCode();
+            $message['status'] = Response::HTTP_BAD_REQUEST;
             $message['message'] = $e->getMessage();
         } catch (Exception $e) {
-            $message['error'] = $e->getCode();
+            $message['status'] = Response::HTTP_BAD_REQUEST;
             $message['message'] = $e->getMessage();
         }
         return $message;
@@ -83,15 +83,15 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		try{
 			$card = $q->execute();
             if ($card == 1) {
-            	$message['success'] = $card;
+            	$message['status'] = Response::HTTP_OK;
             	$message['message'] = 'Updating successful';
             }
             else{
-            	$message['success'] = $card;
+            	$message['status'] = Response::HTTP_BAD_REQUEST;
             	$message['message'] = 'No update made, old values and new are equal';
             }
 		} catch (Exception $e){
-			$message['error'] = $e->getCode();
+			$message['status'] = $e->getCode();
             $message['message'] = $e->getMessage();
 		}
 		return $message;
@@ -107,15 +107,15 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 		try{
 			$card = $qb->execute();		
         	if ($card == 1) {
-        		$message['success'] = $card;
+        		$message['status'] = Response::HTTP_OK;
         		$message['message'] = 'Deleting successful';
         	}
         	else{
-        		$message['success'] = $card;
+        		$message['status'] = Response::;
         		$message['message'] = 'Can not delete an index that does not exist in the database';
         	}
 		} catch(Exception $e){
-			$message['error'] = $e->getCode();
+			$message['status'] = $e->getCode();
             $message['message'] = $e->getMessage();
 		}
 		return $message;
