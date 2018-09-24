@@ -17,10 +17,29 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function getAll()
 	{
-		return $this
-			->createQueryBuilder('c')
-		    ->getQuery()
-		    ->getArrayResult();
+		// return $this
+		// 	->createQueryBuilder('c')
+		//     ->getQuery()
+		//     ->getArrayResult();
+		$qb = $this->createQueryBuilder('c');
+		$q = $qb->getQuery();
+
+		try{
+			$cards = $q->getArrayResult();
+			if (!$cards) {
+				$message['status'] = Response::HTTP_NO_CONTENT;
+				$message['message'] = 'there is no card in the database';
+				$data['data'] = null;
+			}
+			else{
+				$message['status'] = Response::HTTP_OK;
+				$message['message'] = 'Success Request';
+				$message['data'] = $cards;
+			}
+		} catch(Exception $e){
+
+		}
+		return $message;
 	}
 
 	public function getById($id) {
@@ -33,9 +52,13 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
 			if (!$card) {
 				$message['status'] = Response::HTTP_NO_CONTENT;
 				$message['message'] = 'Can not find an index that does not exist in the database';
+				$message['data'] = null;
 			}
 			else{
-				$message = $card;
+				//$message = $card;
+				$message['status'] = Response::HTTP_OK;
+				$message['message'] = 'Success Request';
+				$message['data'] = $card[0];
 			}
 		} catch (Exception $e){
 			$message['status'] = $e->getCode();
@@ -111,7 +134,7 @@ class CardRepository extends \Doctrine\ORM\EntityRepository
         		$message['message'] = 'Deleting successful';
         	}
         	else{
-        		$message['status'] = Response::;
+        		$message['status'] = Response::HTTP_NO_CONTENT;
         		$message['message'] = 'Can not delete an index that does not exist in the database';
         	}
 		} catch(Exception $e){
