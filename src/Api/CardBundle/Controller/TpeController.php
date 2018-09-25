@@ -8,19 +8,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Api\CardBundle\Controller\DefaultController;
 
-class TpeController extends Controller
+class TpeController extends DefaultController
 {
 
 	protected $_entity = 'Tpe';
 
 	public function indexAction()
 	{
-		# code...	
+		return $this->findAll();	
 	}
 
 	public function getByIdAction($id)
 	{
-		# code...
+		return $this->findById($id);
 	}
 
 	public function getTpeFieldAction($id, $field)		
@@ -30,16 +30,66 @@ class TpeController extends Controller
 
 	public function addTpeAction(Request $req)
 	{
-		# code...
+		$tpe = new Tpe();
+		$data['imei'] = $req->request->get('imei');
+		$data['mac'] = $req->request->get('mac');
+		$tpe->setImei($data['imei']);
+		$tpe->setMac($data['mac']);
+		
+		$validator = $this->get('validator');
+		$errors = $validator->validate($tpe);
+
+		$validationError = array();
+		if (count($errors) > 0) {
+			foreach ($errors->getIterator() as $key => $value) {
+				$err['message'] = $value->getMessage();
+				$err['parameter'] = $value->getPropertyPath();
+				array_push($validationError, $err);
+			}
+			return $this->reponse($validationError);
+		}
+
+		$failure = $this->validateTpe($data);
+
+		if ($failure == false) {
+			$reponse = $this->getService()->add($tpe);
+			return $this->reponse($reponse);
+		}
+
+		else{
+			return $this->reponse($failure);
+		}
+
 	}
 
 	public function updateTpeAction(Request $req, $id)
 	{
-		# code...
+		$errors = array();
+		$failure = false;
+		$data['id'] = $id;
+        $data['imei'] = $req->request->get('imei');
+        $data['mac'] = $req->request->get('mac');
+
+        $failure = $this->validateTpe($data);
+
+        if ($failure == false) {
+        	$reponse = $this->getService()->update($data);
+        	return $this->reponse($reponse);
+        }
+
+        else{
+        	return $this->reponse($failure);
+        }
 	}
 
-	public function deleteCardAction($id)
+	public function deleteTpeAction($id)
 	{
-		# code...
+		return $this->delete($id);
+	}
+
+	public function validateTpe($value='')
+	{
+		$error = false;
+		return $error;
 	}
 }

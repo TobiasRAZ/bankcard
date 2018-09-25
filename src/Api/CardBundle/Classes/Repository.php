@@ -24,7 +24,7 @@ abstract class Repository extends \Doctrine\ORM\EntityRepository
 			$data = $q->getArrayResult();
 			if (!$data) {
 				$message['status'] = Response::HTTP_NO_CONTENT;
-				$message['message'] = 'this index does not exist in the database';
+				$message['message'] = 'No data found in the database';
 				$data['data'] = null;
 			}
 			else{
@@ -33,6 +33,7 @@ abstract class Repository extends \Doctrine\ORM\EntityRepository
 				$message['data'] = $data;
 			}
 		} catch(Exception $e){
+			
 
 		}
 		return $message;
