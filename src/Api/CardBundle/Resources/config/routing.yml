@@ -7,7 +7,7 @@ api_card_add:
   defaults: { _controller: ApiCardBundle:Card:addCard}
   methods: [POST]
 
-api_card_card:
+api_card_list:
   path: /card
   defaults: { _controller: ApiCardBundle:Card:index}
   methods: [GET, HEAD]
@@ -40,3 +40,41 @@ api_card_field:
   requirements:
         id: \d+
         field: \s+
+
+api_tpe_add:
+  path: /tpe/add
+  defaults: { _controller: ApiCardBundle:Tpe:addTpe}
+  methods: [POST]
+
+api_tpe_list:
+  path: /tpe
+  defaults: { _controller: ApiCardBundle:Tpe:index}
+  methods: [GET, HEAD]
+
+api_tpe_getbyid:
+  path: /tpe/{id}
+  defaults: { _controller: ApiCardBundle:Tpe:getById}
+  methods: [GET, HEAD]
+  requirements:
+    id: \d+
+
+api_tpe_update:
+  path: /tpe/{id}/update
+  defaults: { _controller: ApiCardBundle:Tpe:updateTpe}
+  methods: [PUT]
+  requirements:
+    id: \d+
+
+api_tpe_delete:
+  path: /card/{id}
+  defaults: { _controller: ApiCardBundle:Tpe:deleteTpe}
+  requirements:
+    id: \d+
+
+api_tpe_field:
+  path: /card{id}/{fields}
+  defaults: { _controller: ApiCardBundle:Tpe:getTpeField}
+  methods: [GET, HEAD]
+  requirements:
+    id: \d+
+    field: \s+
