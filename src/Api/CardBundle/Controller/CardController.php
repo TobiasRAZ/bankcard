@@ -14,16 +14,14 @@ class CardController extends DefaultController {
 	 * List of cards
 	 */
 	public function indexAction() {
-		$cards = $this->getService()->getAll();
-		return $this->reponse($cards);
+		return $this->findAll();
 	}
 
 	/**
 	 * Get card by id
 	 */
 	public function getByIdAction($id) {
-		$card = $this->getService()->getById($id);
-		return $this->reponse($card);
+		return $this->findById($id);
 	}
 
 	/**
@@ -120,16 +118,7 @@ class CardController extends DefaultController {
 	 */
 	public function deleteCardAction($id)
 	{
-		$reponse = $this->getService()->delete($id);
-        return $this->reponse(array($reponse));
-	}
-
-	/**
-	 * Return Json Reponse
-	 */
-	private function reponse($content)
-	{
-		return new JsonResponse($content);
+		return $this->delete($id);
 	}
 
 	/**

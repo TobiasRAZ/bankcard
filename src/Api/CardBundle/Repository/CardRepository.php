@@ -1,10 +1,6 @@
 <?php
 
 namespace Api\CardBundle\Repository;
-use Api\CardBundle\Entity\Card;
-use Doctrine\DBAL\DBALException;
-use Doctrine\ORM\ORMException;
-use PDOException;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Api\CardBundle\Classes\Repository;

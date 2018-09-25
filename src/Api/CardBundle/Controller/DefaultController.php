@@ -85,4 +85,26 @@ class DefaultController extends Controller {
     protected function findToken($entityName, $access_token) {
     	return $this->loadService()->findToken($entityName, $access_token);
     }
+
+    protected function findAll(){
+    	$data = $this->getService()->getAll();
+		return $this->reponse($data);
+    }
+
+    protected function findById($id)
+    {
+    	$data = $this->getService()->getById($id);
+		return $this->reponse($data);
+    }
+
+    protected function delete($id)
+    {
+    	$reponse = $this->getService()->delete($id);
+        return $this->reponse(array($reponse));
+    }
+
+    protected function reponse($content)
+	{
+		return new JsonResponse($content);
+	}
 }
