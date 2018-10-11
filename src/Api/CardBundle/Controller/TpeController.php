@@ -3,7 +3,7 @@
 namespace Api\CardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\CardBundle\Entity\Tpe;
+use Api\CardBundle\Entity\Tpe;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Api\CardBundle\Controller\DefaultController;
@@ -26,6 +26,12 @@ class TpeController extends DefaultController
 	public function getTpeFieldAction($id, $field)		
 	{
 		# code...
+	}
+
+	public function getTpeByImeiAction($imei)
+	{
+		$reponse = $this->getService()->getByImei($imei);
+		return $this->reponse($reponse);
 	}
 
 	public function addTpeAction(Request $req)

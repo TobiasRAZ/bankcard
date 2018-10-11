@@ -72,9 +72,16 @@ api_tpe_delete:
     id: \d+
 
 api_tpe_field:
-  path: /card{id}/{fields}
+  path: /card/{id}/{fields}
   defaults: { _controller: ApiCardBundle:Tpe:getTpeField}
   methods: [GET, HEAD]
   requirements:
     id: \d+
     field: \s+
+
+api_tpe_getbyimei:
+  path: /tpe/imei/{imei}
+  defaults: { _controller: ApiCardBundle:Tpe:getTpeByImei}
+  methods: [GET,HEAD]
+  requirements:
+    imei: \d+
