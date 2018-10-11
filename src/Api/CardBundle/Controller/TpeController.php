@@ -34,6 +34,12 @@ class TpeController extends DefaultController
 		return $this->reponse($reponse);
 	}
 
+	public function getTpeByMacAction($mac)
+	{
+		$reponse = $this->getService()->getByMac($mac);
+		return $this->reponse($reponse);
+	}
+
 	public function addTpeAction(Request $req)
 	{
 		$tpe = new Tpe();

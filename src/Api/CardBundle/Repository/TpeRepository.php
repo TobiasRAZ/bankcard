@@ -65,4 +65,31 @@ class TpeRepository extends Repository
 
 		return $message;
 	}
+
+	function getByMac($mac)
+	{
+		$qb = $this->createQueryBuilder('c');
+		$q = $qb->where("c.mac = :mac")
+			    ->setParameter('mac', $mac)
+			    ->getQuery();
+		try{
+			$data = $q->getArrayResult();
+			if (!$data) {
+				$message['status'] = Response::HTTP_NO_CONTENT;
+				$message['message'] = 'Can not find an index that does not exist in the database';
+				$message['data'] = null;
+			}
+			else{
+				//$message = $card;
+				$message['status'] = Response::HTTP_OK;
+				$message['message'] = 'Success Request';
+				$message['data'] = $data[0];
+			}
+		} catch (Exception $e){
+			$message['status'] = $e->getCode();
+            $message['message'] = $e->getMessage();
+		}
+
+		return $message;
+	}
 }

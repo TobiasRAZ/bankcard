@@ -85,3 +85,10 @@ api_tpe_getbyimei:
   methods: [GET,HEAD]
   requirements:
     imei: \d+
+
+api_tpe_getbymac:
+  path: /tpe/mac/{mac}
+  defaults: { _controller: ApiCardBundle:Tpe:getTpeByMac}
+  methods: [GET,HEAD]
+  requirements:
+    mac: \d+
