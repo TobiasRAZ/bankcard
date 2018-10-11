@@ -19,7 +19,7 @@ security:
 
         main:
             access_denied_handler: api_card.access_denied_handler
-            pattern: ^/api/card
+            pattern: ^/api
             provider: webservice
             guard:
                 authenticators:
