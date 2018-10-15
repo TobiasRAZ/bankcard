@@ -11,32 +11,25 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/")
-     */
-    public function indexAction()
+
+
+    public function getAllTpe()
     {
+        $response = $this->forward('ApiCardBundle:Tpe:index')->getContent();
 
-    	$reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();
-
-        if (json_decode($reponse)->status == 204) {            
-            var_dump($reponse);
+        if (json_decode($response)->status == 204) {            
+            return $response;
         }
 
         else{
             $allTpe= $this->forwrdTpeController('index')->data;
-            var_dump($allTpe);
+            return $allTpe;
         }
 
-
-
-        return $this->render('BackofficeTpeBundle:Default:index.html.twig');
     }
 
-
-    public function forwrdTpeController($action, $data = null)
+    protected function forwrdTpeController($action, $data = null)
     {
-
 
         $controller = 'ApiCardBundle:Tpe:';
 
