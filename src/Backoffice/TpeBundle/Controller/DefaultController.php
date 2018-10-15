@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $response = $this->forward('ApiCardBundle:Tpe:index')->getContent();
 
         if (json_decode($response)->status == 204) {            
-            return $response;
+            return false;
         }
 
         else{

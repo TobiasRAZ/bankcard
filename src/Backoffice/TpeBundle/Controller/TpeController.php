@@ -13,9 +13,20 @@ class TpeController extends DefaultController
      */
     public function indexAction()
     {
+
+    	$allTpe = $this->getAllTpe();
+
         return $this->render('BackofficeTpeBundle:Tpe:index.html.twig', array(
             // ...
         ));
+    }
+
+    /**
+     * @Route("tpe/add")
+     */
+    public function addAction()
+    {
+    	
     }
 
 }
