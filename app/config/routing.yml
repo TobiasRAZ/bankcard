@@ -1,3 +1,8 @@
+backoffice_tpe:
+    resource: "@BackofficeTpeBundle/Controller/"
+    type:     annotation
+    prefix:   /backoffice
+
 api_card:
     resource: "@ApiCardBundle/Resources/config/routing.yml"
     prefix:   /api
