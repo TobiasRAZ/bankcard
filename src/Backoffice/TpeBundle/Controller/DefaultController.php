@@ -15,11 +15,18 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
+    	//$this->loadService();
+
 
     	//new \TpeController();
 
     	//$this->get('http://127.0.0.1:8000/api');
 
         return $this->render('BackofficeTpeBundle:Default:index.html.twig');
+    }
+
+
+    public function loadService() {
+        return $this->container->get('backoffice_tpe.curlservice');
     }
 }

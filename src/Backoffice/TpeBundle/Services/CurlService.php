@@ -10,11 +10,11 @@ namespace Backoffice\Services\CurlService;
 class CurlService
 {
 	
-	$apikey = "thisisthedefaultapikeyforeqimauser";
-	$endpoint = "127.0.0.1:8000";
+	public $apikey = "thisisthedefaultapikeyforeqimauser";
+	public $endpoint = "127.0.0.1:8000";
 
 
-	call($method, $url, $data = false){
+	public function call($method, $url, $data = false){
 
 		$curl = curl_init();
 
@@ -35,8 +35,6 @@ class CurlService
                 $url = sprintf("%s?%s", $url, http_build_query($data));
 
 		}
-	}
-
 	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     //curl_setopt($curl, CURLOPT_USERPWD, "username:password");
 
@@ -48,5 +46,8 @@ class CurlService
     curl_close($curl);
 
     return $result;
+    
+	}
+
 	
 }

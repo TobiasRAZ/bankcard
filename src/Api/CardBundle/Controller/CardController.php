@@ -34,6 +34,9 @@ class CardController extends DefaultController {
 		$_card = new Card();
 		$_card->setPin($card[0]['pin']);
 		$_card->setCardNumber($card[0]['cardNumber']);
+		$_card->setIdentifiant($card[0]['identifiant']);
+		$_card->setPhone($card[0]['phone']);
+		$_card->setPassword($card[0]['password']);
 
 		$getter = 'get'.ucfirst($fields);
 		
@@ -59,8 +62,15 @@ class CardController extends DefaultController {
 		$card = new Card();
 		$data['cardNumber'] = $req->request->get('cardNumber');
 		$data['pin'] = $req->request->get('pin');
+		$data['identifiant'] = $req->request->get('identifiant');
+		$data['phone'] = $req->request->get('phone');
+		$data['password'] = $req->request->get('password');
+
 		$card->setCardNumber($data['cardNumber']);
 		$card->setPin($data['pin']);
+		$card->setIdentifiant($data['identifiant']);
+		$card->setPhone($data['phone']);
+		$card->setPassword($data['password']);
 		
 		$validator = $this->get('validator');
 		$errors = $validator->validate($card);
@@ -99,6 +109,9 @@ class CardController extends DefaultController {
 		$data['id'] = $id;
         $data['cardNumber'] = $req->request->get('cardNumber');
         $data['pin'] = $req->request->get('pin');
+        $data['identifiant'] = $req->request->get('identifiant');
+        $data['phone'] = $req->request->get('phone');
+        $data['password'] = $req->request->get('password');
 
         $failure = $this->validateCard($data);
 
