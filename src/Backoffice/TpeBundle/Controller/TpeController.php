@@ -14,10 +14,10 @@ class TpeController extends DefaultController
     public function indexAction()
     {
 
-    	$allTpe = $this->getAllTpe();
+    	$tpelist = $this->getAllTpe();
 
         return $this->render('BackofficeTpeBundle:Tpe:index.html.twig', array(
-            'allTpe' => $allTpe
+            'tpelist' => $tpelist
         ));
     }
 
