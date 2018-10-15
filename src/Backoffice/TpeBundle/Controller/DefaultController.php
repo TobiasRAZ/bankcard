@@ -17,11 +17,9 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
-    	//$reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();
+    	$reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();
 
-        $allTpe= $this->forwrdTpeController('index')->data;
-
-        var_dump($allTpe);
+		var_dump($reponse);    
 
         return $this->render('BackofficeTpeBundle:Default:index.html.twig');
     }

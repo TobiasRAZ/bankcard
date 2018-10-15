@@ -1,1 +1,107 @@
-TPE
+<!DOCTYPE html>
+<html>
+    <head>
+       {% block head %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+            <title>{% block title %}{% endblock %} - Card List</title>
+        {% endblock %}
+
+    </head>
+    <body>
+
+        {% block card %}
+            <h1>CARD</h1>
+            <p class="important">
+                 Card List
+            </p>
+        {% endblock %}
+            <div id="content">
+
+                {% block content %}
+
+        <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm">IMEI
+        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+      </th>
+      <th class="th-sm">MAC
+        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+      </th>
+      <th class="th-sm">STATUS
+        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+      </th>
+    
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>530972476623920</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-danger btn-lg"> OFF</button></td>
+      
+    </tr>
+    <tr>
+      <td>530972476623920</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-success btn-lg"> ON</button></td>
+      
+    </tr>
+    <tr>
+      <td>530972476623920</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-success btn-lg"> ON</button></td>
+      
+    </tr>
+    <tr>
+      <td>530972476623920</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-success btn-lg"> ON</button></td>
+     
+    </tr>
+    <tr>
+      <td>530972476623920</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-danger btn-lg"> OFF</button></td>
+     
+    </tr>
+    <tr>
+      <td>Brielle Williamson</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-success btn-lg"> ON</button></td>
+      
+    </tr>
+    <tr>
+      <td>530972476623920</td>
+      <td>AD-4F-F1-16-7E-F7</td>
+      <td><button class="btn btn-success btn-lg"> ON</button></td>
+      
+    </tr>
+   
+  </tbody>
+  <!-- <tfoot>
+    <tr>
+      <th>Name
+      </th>
+      <th>Position
+      </th>
+      <th>Office
+      </th>
+      
+    </tr>
+  </tfoot> -->
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+});
+</script>
+
+        {% endblock %}
+
+            </div>
+    </body>
+</html>
