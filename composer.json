@@ -5,7 +5,8 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
-            "Api\\CardBundle\\": "src/Api/CardBundle"
+            "Api\\CardBundle\\": "src/Api/CardBundle",
+            "Backoffice\\TpeBundle\\": "src/Backoffice/TpeBundle"
         },
         "classmap": [
             "app/AppKernel.php",
