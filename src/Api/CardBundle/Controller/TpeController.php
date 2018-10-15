@@ -40,11 +40,23 @@ class TpeController extends DefaultController
 		return $this->reponse($reponse);
 	}
 
-	public function addTpeAction(Request $req)
+	public function addTpeAction(Request $req, $imei= null, $mac= null)
 	{
+
+
 		$tpe = new Tpe();
-		$data['imei'] = $req->request->get('imei');
-		$data['mac'] = $req->request->get('mac');
+
+		if ($imei && $mac) {
+			$data['imei'] = $imei;
+			$data['mac'] = $mac;
+		}
+
+		else{
+			$data['imei'] = $req->request->get('imei');
+			$data['mac'] = $req->request->get('mac');
+		}
+
+
 		$tpe->setImei($data['imei']);
 		$tpe->setMac($data['mac']);
 		
