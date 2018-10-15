@@ -17,11 +17,22 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
-    	//$reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();
+    	// $reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();
 
-        $allTpe= $this->forwrdTpeController('index')->data;
+        //$allTpe= $this->forwrdTpeController('index')->data;
 
-        var_dump($allTpe);
+        //var_dump($allTpe);
+
+
+        $data = array (
+
+            'imei' => '147852',
+            'mac' => '147852'
+        );
+
+        $addTpe = $this->forwrdTpeController('addTpe', $data);
+
+        var_dump($addTpe);
 
         return $this->render('BackofficeTpeBundle:Default:index.html.twig');
     }
@@ -37,6 +48,11 @@ class DefaultController extends Controller
             case 'index':
                 $reponse = $this->forward("$controller$action")->getContent();
                 return json_decode($reponse);
+                break;
+
+            case 'addTpe':
+                $reponse = $this->forward("$controller$action", $data)->getContent();
+                return(json_decode($reponse));
                 break;
         }
 
