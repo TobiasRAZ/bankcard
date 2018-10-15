@@ -5,6 +5,8 @@ namespace Backoffice\TpeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 //use Api\CardBundle\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 
 class DefaultController extends Controller
@@ -15,18 +17,30 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
-    	//$this->loadService();
+    	//$reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();
 
+        $allTpe= $this->forwrdTpeController('index')->data;
 
-    	//new \TpeController();
-
-    	//$this->get('http://127.0.0.1:8000/api');
+        var_dump($allTpe);
 
         return $this->render('BackofficeTpeBundle:Default:index.html.twig');
     }
 
 
-    public function loadService() {
-        return $this->container->get('backoffice_tpe.curlservice');
+    public function forwrdTpeController($action, $data = null)
+    {
+
+
+        $controller = 'ApiCardBundle:Tpe:';
+
+        switch ($action) {
+            case 'index':
+                $reponse = $this->forward("$controller$action")->getContent();
+                return json_decode($reponse);
+                break;
+        }
+
     }
+
+
 }

@@ -24,7 +24,7 @@ security:
             guard:
                 authenticators:
                     - api_card.token_authenticator
-            #anonymous: ~
+            # anonymous: ~
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -33,6 +33,6 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
 
-    access_control:
-        - { path: ^/api, roles: ROLE_ADMIN }
+    # access_control:
+    #     - { path: ^/api, roles: ROLE_ADMIN }
 
