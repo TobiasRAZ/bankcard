@@ -17,7 +17,7 @@ class TpeController extends DefaultController
     	$allTpe = $this->getAllTpe();
 
         return $this->render('BackofficeTpeBundle:Tpe:index.html.twig', array(
-            // ...
+            'allTpe' => $allTpe
         ));
     }
 

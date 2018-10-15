@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
-    	/*$reponse = $this->forward('ApiCardBundle:Tpe:index')->getContent();*/
-
+    	
+        
 		    
     public function getAllTpe()
     {
