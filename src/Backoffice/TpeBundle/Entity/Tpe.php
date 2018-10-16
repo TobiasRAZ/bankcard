@@ -8,6 +8,8 @@ class Tpe
 
 	protected $mac;
 
+	protected $active;
+
 
 	public function getImei()
 	{
@@ -27,5 +29,15 @@ class Tpe
 	public function setMac($mac)
 	{
 		$this->mac = $mac;
+	}
+
+	public function getActive()
+	{
+		return $this->$active;
+	}
+
+	public function setActive($active)
+	{
+		$this->active = $active;
 	}
 }
