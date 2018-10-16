@@ -12,6 +12,35 @@ use Api\CardBundle\Classes\Repository;
  */
 class TpeRepository extends Repository
 {
+
+
+	public function activate($id)
+	{
+		$qb = $this->createQueryBuilder('c');
+		$q  = $qb->update()
+			->set('c.active', ':active')
+			->setParameter('active', true)
+			->where("c.id = id")
+			->setParameter('id', (int)$id)
+			->getQuery();
+
+		try{
+			$tpe = $q->execute();
+			if ($tpe == 1) {
+				$message['status'] = Response::HTTP_OK;
+				$message['message'] = 'Tpe activation successful';
+			}
+			else{
+				$message['status'] = Response::HTTP_BAD_REQUEST;
+				$message['message'] = 'Tpe is already active';
+			}
+		} catch(Exception $e){
+			$message['status'] = $e->getCode();
+			$message['message'] = $e->getMessage();
+		}
+	}
+
+
 	public function update($data) {
 	    $qb = $this->createQueryBuilder('c');
 		$q = $qb->update()
