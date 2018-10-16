@@ -8,6 +8,7 @@ use Backoffice\TpeBundle\Controller\DefaultController;
 use Backoffice\TpeBundle\Entity\Tpe;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\HttpFoundation\Request;
 
 class TpeController extends DefaultController
@@ -35,15 +36,15 @@ class TpeController extends DefaultController
 
     	$form = $this->createFormBuilder($tpe)
     		->add('imei', TextType::class)
-    		->add('mac', TextType::class)
-    		->add('save', SubmitType::class,array('label' => 'Save TPE'))
+            ->add('mac', TextType::class)
+    		// ->add('active', RadioType::class)
+    		->add('save', SubmitType::class)
     		->getForm();
 
 		$form->handleRequest($req);
 
-		if ($form->isSubmitted() && $form->isValid()) {
+		if ($form->isSubmitted() /*&& $form->isValid()*/) {
 			$tpe = $form->getData();
-
 
 			$params = array(
 				'imei' =>  $tpe->getImei(), 
