@@ -45,7 +45,18 @@
       <td>
       	{{tpeinfo.mac}}
       </td>
-      <td><button class="btn btn-success btn-lg"> Activer</button></td>
+      <!-- <td><button class="btn btn-success btn-lg"> Activer</button></td> -->
+
+      {% if tpeinfo.active != true %}
+        <td><a href="/backoffice/tpe/activate/{{tpeinfo.id}}" class="btn btn-success btn-lg" >Activer</a></td>
+      {% else %}
+        <td><a href="/backoffice/tpe/activate/{{tpeinfo.id}}" class="btn btn-danger btn-lg" >Desactiver</a></td>
+        
+      {% endif %}
+
+          
+
+
       
     </tr>
 {% endfor %}

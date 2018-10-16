@@ -39,6 +39,14 @@ class DefaultController extends Controller
 
     }
 
+    public function activateTpe($id)
+    {
+
+        $reponse = $this->forwrdTpeController('activateTpe', $id);
+
+        return $reponse;
+    }
+
 
     protected function forwrdTpeController($action, $data = null)
     {
@@ -52,6 +60,11 @@ class DefaultController extends Controller
                 break;
 
             case 'addTpe':
+                $reponse = $this->forward("$controller$action", $data)->getContent();
+                return(json_decode($reponse));
+                break;
+                
+            case 'activateTpe':
                 $reponse = $this->forward("$controller$action", $data)->getContent();
                 return(json_decode($reponse));
                 break;

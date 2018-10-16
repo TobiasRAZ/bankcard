@@ -65,4 +65,20 @@ class TpeController extends DefaultController
 		));
     }
 
+    
+    /**
+     * @Route("/tpe/activate/{id}", name="activate_tpe")
+     */
+    public function activateAction($id)
+    {
+        $params = array(
+            'id' => $id
+        );
+
+        $message = $this->activateTpe($params);
+
+        var_dump($message); die;
+
+    }
+
 }

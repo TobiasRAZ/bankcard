@@ -122,6 +122,7 @@ class TpeController extends DefaultController
 
 	public function activateTpeAction($id)
 	{
+
 		$reponse = $this->getService()->activate($id);
 		return $this->reponse($reponse);
 	}
