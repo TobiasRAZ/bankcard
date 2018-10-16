@@ -88,4 +88,23 @@ class TpeController extends DefaultController
 
     }
 
+    
+    /**
+     * @Route("/tpe/desactivate/{id}", name="desactivate_tpe")
+     */
+    public function desactivateAction($id)
+    {
+        $params = array(
+            'id' => $id
+        );
+
+        $message = $this->desactivateTpe($params);
+
+        // var_dump($message); die;
+
+        return $this->redirectToRoute('tpe_list');
+        
+
+    }
+
 }
