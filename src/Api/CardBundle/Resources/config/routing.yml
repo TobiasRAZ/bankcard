@@ -99,3 +99,10 @@ api_tpe_activate:
   methods: [PUT]
   requirements:
     id: \d+
+
+api_tpe_desactivate:
+  path: /tpe/{id}/desactivate
+  defaults: { _controller: ApiCardBundle:Tpe:desactivateTpe}
+  methods: [PUT]
+  requirements:
+    id: \d+

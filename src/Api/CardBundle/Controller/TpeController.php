@@ -126,4 +126,10 @@ class TpeController extends DefaultController
 		$reponse = $this->getService()->activate($id);
 		return $this->reponse($reponse);
 	}
+
+	public function desactivateTpeAction($id)
+	{
+		$reponse = $this->getService()->desactivate($id);
+		return $this->reponse($reponse);
+	}
 }
