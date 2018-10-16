@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class TpeController extends DefaultController
 {
     /**
-     * @Route("tpe/")
+     * @Route("tpe/", name="tpe_list")
      */
     public function indexAction()
     {
@@ -58,7 +58,9 @@ class TpeController extends DefaultController
 
 			$message = $this->addtpe($data);
 
-			var_dump($message); die;
+			// var_dump($message); die;
+
+            return $this->redirectToRoute('tpe_list');
 
 		}
 
@@ -79,7 +81,10 @@ class TpeController extends DefaultController
 
         $message = $this->activateTpe($params);
 
-        var_dump($message); die;
+        // var_dump($message); die;
+
+        return $this->redirectToRoute('tpe_list');
+        
 
     }
 
