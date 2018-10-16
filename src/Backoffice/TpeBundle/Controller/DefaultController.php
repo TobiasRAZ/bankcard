@@ -32,6 +32,9 @@ class DefaultController extends Controller
     {
         $reponse = $this->forwrdTpeController('addTpe', $tpe);
 
+
+        //var_dump($reponse);die;
+
         if ($reponse->status == 201) {
             return $reponse;
         }

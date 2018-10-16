@@ -47,7 +47,8 @@ class TpeController extends DefaultController
 
 			$params = array(
 				'imei' =>  $tpe->getImei(), 
-				'mac' => $tpe->getMac()
+				'mac' => $tpe->getMac(),
+                'active' => false
 			);
 
 			$data  = array(
