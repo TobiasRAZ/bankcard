@@ -16,11 +16,12 @@ class TpeRepository extends Repository
 
 	public function activate($id)
 	{
+
 		$qb = $this->createQueryBuilder('c');
 		$q  = $qb->update()
 			->set('c.active', ':active')
 			->setParameter('active', true)
-			->where("c.id = id")
+			->where("c.id = :id")
 			->setParameter('id', (int)$id)
 			->getQuery();
 
@@ -38,6 +39,8 @@ class TpeRepository extends Repository
 			$message['status'] = $e->getCode();
 			$message['message'] = $e->getMessage();
 		}
+
+		return $message;
 	}
 
 

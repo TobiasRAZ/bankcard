@@ -92,3 +92,10 @@ api_tpe_getbymac:
   methods: [GET,HEAD]
   requirements:
     mac: \d+
+
+api_tpe_activate:
+  path: /tpe/{id}/activate
+  defaults: { _controller: ApiCardBundle:Tpe:activateTpe}
+  methods: [PUT]
+  requirements:
+    id: \d+

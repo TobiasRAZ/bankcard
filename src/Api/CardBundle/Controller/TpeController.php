@@ -49,16 +49,19 @@ class TpeController extends DefaultController
 		if ($params) {
 			$data['imei'] = $params['imei'];
 			$data['mac'] = $params['mac'];
+			$data['active'] = $params['active'];
 		}
 
 		else{
 			$data['imei'] = $req->request->get('imei');
 			$data['mac'] = $req->request->get('mac');
+			$data['active'] = $req->request->get('active');
 		}
 
 
 		$tpe->setImei($data['imei']);
 		$tpe->setMac($data['mac']);
+		$tpe->setActive($data['active']);
 		
 		$validator = $this->get('validator');
 		$errors = $validator->validate($tpe);
@@ -115,5 +118,11 @@ class TpeController extends DefaultController
 	{
 		$error = false;
 		return $error;
+	}
+
+	public function activateTpeAction($id)
+	{
+		$reponse = $this->getService()->activate($id);
+		return $this->reponse($reponse);
 	}
 }
