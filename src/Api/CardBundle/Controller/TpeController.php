@@ -40,15 +40,15 @@ class TpeController extends DefaultController
 		return $this->reponse($reponse);
 	}
 
-	public function addTpeAction(Request $req, $imei= null, $mac= null)
+	public function addTpeAction(Request $req, $params = null)
 	{
 
 
 		$tpe = new Tpe();
 
-		if ($imei && $mac) {
-			$data['imei'] = $imei;
-			$data['mac'] = $mac;
+		if ($params) {
+			$data['imei'] = $params['imei'];
+			$data['mac'] = $params['mac'];
 		}
 
 		else{

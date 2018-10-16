@@ -27,6 +27,19 @@ class DefaultController extends Controller
 
     }
 
+
+    public function addtpe($tpe)
+    {
+        $reponse = $this->forwrdTpeController('addTpe', $tpe);
+
+        if ($reponse->status == 201) {
+            return $reponse;
+        }
+
+
+    }
+
+
     protected function forwrdTpeController($action, $data = null)
     {
 
