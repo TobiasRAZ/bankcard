@@ -33,7 +33,7 @@ class Tpe
 
 	public function getActive()
 	{
-		return $this->$active;
+		return $this->active;
 	}
 
 	public function setActive($active)
