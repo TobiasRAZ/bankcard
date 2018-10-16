@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block seo %}
-      <title>Back Office : BANKCARD</title>
+      <title>{{ project_name }}</title>
 {% endblock %}
 
 
@@ -56,10 +56,10 @@
                     </ul>
                 </li> -->
                 <li class="active">
-                    <a href="/backoffice/tpe/"><i class="fa fa-diamond"></i> <span class="nav-label">Liste des TPE</span></a>
+                    <a href="/backoffice/tpe/"><i class="fa fa-th-large"></i> <span class="nav-label">Liste des TPE</span></a>
                 </li>
                 <li>
-                    <a href="/backoffice/tpe/add"><i class="fa fa-diamond"></i> <span class="nav-label">Ajouter un TPE</span></a>
+                    <a href="/backoffice/tpe/add"><i class="fa fa-edit"></i> <span class="nav-label">Ajouter un TPE</span></a>
                 </li>
             </ul>
 
@@ -79,7 +79,7 @@
         </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                    <span class="m-r-sm text-muted welcome-message">{{ project_name }}</span>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -225,10 +225,10 @@
 
         <div class="footer">
             <div class="float-right">
-                10GB of <strong>250GB</strong> Free.
+                <strong>{{ project_name }}</strong>
             </div>
             <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2018
+                {{copyryght}}
             </div>
         </div>
 
