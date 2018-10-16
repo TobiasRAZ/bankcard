@@ -140,6 +140,13 @@ class TpeController extends DefaultController
         var_dump($message); die;
     }
 
+    // public function editAction($id)
+    // {
+    //     $tpe = $this->getByIdAction($id)->data;
+
+        
+    // }
+
 
 
 }
