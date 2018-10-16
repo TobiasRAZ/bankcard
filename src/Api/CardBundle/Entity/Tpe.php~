@@ -42,6 +42,11 @@ class Tpe
      */
     private $active;
 
+
+
+
+
+
     /**
      * Get id
      *
@@ -99,28 +104,5 @@ class Tpe
     {
         return $this->mac;
     }
-
-    /**
-     * Set active
-     *
-     * @param boolean $active
-     *
-     * @return Tpe
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * Get active
-     *
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
 }
+
