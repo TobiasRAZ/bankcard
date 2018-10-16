@@ -66,13 +66,14 @@ api_tpe_update:
     id: \d+
 
 api_tpe_delete:
-  path: /card/{id}
+  path: /tpe/{id}
   defaults: { _controller: ApiCardBundle:Tpe:deleteTpe}
+  methods: [DELETE]
   requirements:
     id: \d+
 
 api_tpe_field:
-  path: /card/{id}/{fields}
+  path: /tpe/{id}/{fields}
   defaults: { _controller: ApiCardBundle:Tpe:getTpeField}
   methods: [GET, HEAD]
   requirements:

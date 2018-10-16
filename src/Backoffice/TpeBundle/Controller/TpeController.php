@@ -107,4 +107,22 @@ class TpeController extends DefaultController
 
     }
 
+    /**
+     * @Route("/tpe/delete/{id}", name="delete_tpe")
+     */
+    public function deleteAction($id)
+    {
+        $params = array(
+            'id' => $id
+        );
+
+        $message = $this->deleteTpe($params);
+
+        // var_dump($message); die;
+
+        return $this->redirectToRoute('tpe_list');
+        
+
+    }
+
 }
