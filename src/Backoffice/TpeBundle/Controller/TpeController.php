@@ -125,4 +125,21 @@ class TpeController extends DefaultController
 
     }
 
+    
+    /**
+     * @Route("/tpe/{id}", name="tpe_getbyid")
+     */
+    public function getByIdAction($id)
+    {
+        $params = array(
+            'id' => $id
+        );
+
+        $message = $this->getTpe($params);
+
+        var_dump($message); die;
+    }
+
+
+
 }

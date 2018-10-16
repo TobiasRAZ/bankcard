@@ -20,6 +20,7 @@ class TpeController extends DefaultController
 
 	public function getByIdAction($id)
 	{
+
 		return $this->findById($id);
 	}
 

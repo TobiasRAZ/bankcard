@@ -44,7 +44,16 @@
               
             {% endif %}
 
-            <td><a href="/backoffice/tpe/delete/{{tpeinfo.id}}" class="btn btn-danger btn-sm btn-lg" >Supprimer</a></td>
+            <td>
+              <a href="/backoffice/tpe/delete/{{tpeinfo.id}}" class="btn btn-danger btn-sm btn-lg" >
+                Supprimer
+              </a>
+
+              <a href="/backoffice/tpe/{{tpeinfo.id}}" class="btn btn-success btn-sm btn-lg" >
+                Editer
+              </a>
+            </td>
+
 
           </tr>
       {% endfor %}
