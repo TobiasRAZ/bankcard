@@ -38,14 +38,14 @@
             <!-- <td><button class="btn btn-success btn-lg"> Activer</button></td> -->
 
             {% if tpeinfo.active != true %}
-              <td><a href="{{ path('activate_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-primary btn-sm btn-lg" >Activer</a></td>
+              <td><a data-toggle="confirmation" data-message="Voulez-vous activer ce TPE ?" href="{{ path('activate_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-primary btn-sm btn-lg" >Activer</a></td>
             {% else %}
-              <td><a href="{{ path('desactivate_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >Desactiver</a></td>
+              <td><a data-toggle="confirmation" data-message="Voulez-vous désactiver ce TPE ?" href="{{ path('desactivate_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >Desactiver</a></td>
               
             {% endif %}
 
             <td>
-              <a href="{{ path('delete_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >
+              <a data-toggle="confirmation" data-message="Voulez-vous supprimer ce TPE ?" href="{{ path('delete_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >
                 Supprimer
               </a>
 
@@ -64,4 +64,15 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('[data-toggle="confirmation"][data-message]').on('click', function (event) {
+            var message = $(this).data('message');
+
+            return confirm(message) || event.preventDefault();
+        });
+    </script>
 {% endblock %}
