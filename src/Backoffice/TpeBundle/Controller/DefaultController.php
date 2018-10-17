@@ -71,6 +71,13 @@ class DefaultController extends Controller
         return $reponse;
     }
 
+    public function updateTpe($tpe)
+    {
+        $reponse = $this->forwrdTpeController('updateTpe', $tpe);
+
+        return $reponse;
+    }
+
 
     protected function forwrdTpeController($action, $data = null)
     {
@@ -104,6 +111,11 @@ class DefaultController extends Controller
                 break;
                 
             case 'getById':
+                $reponse = $this->forward("$controller$action", $data)->getContent();
+                return(json_decode($reponse));
+                break;
+
+            case 'updateTpe':
                 $reponse = $this->forward("$controller$action", $data)->getContent();
                 return(json_decode($reponse));
                 break;

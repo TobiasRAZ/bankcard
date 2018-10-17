@@ -11,6 +11,16 @@ class Tpe
 	protected $active;
 
 
+	function __construct($object = null)
+	{
+		if ($object) {
+			$this->setImei($object->imei);
+			$this->setMac($object->mac);
+			$this->setActive($object->active);
+		}
+	}
+
+
 	public function getImei()
 	{
 		return $this->imei;

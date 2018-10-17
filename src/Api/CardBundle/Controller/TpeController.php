@@ -90,13 +90,24 @@ class TpeController extends DefaultController
 
 	}
 
-	public function updateTpeAction(Request $req, $id)
+	public function updateTpeAction(Request $req, $id = null, $params = null)
 	{
 		$errors = array();
 		$failure = false;
-		$data['id'] = $id;
-        $data['imei'] = $req->request->get('imei');
-        $data['mac'] = $req->request->get('mac');
+
+		if ($params) {
+			$data['id'] = $params['id'];
+			$data['imei'] = $params['imei'];
+			$data['mac'] = $params['mac'];
+		}
+
+		else{
+			$data['id'] = $id;
+	        $data['imei'] = $req->request->get('imei');
+	        $data['mac'] = $req->request->get('mac');
+		}
+
+
 
         $failure = $this->validateTpe($data);
 

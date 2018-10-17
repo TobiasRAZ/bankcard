@@ -46,10 +46,10 @@
                     </div>
                 </li>
                 <li class="active">
-                    <a href="/backoffice/tpe/"><i class="fa fa-th-large"></i> <span class="nav-label">Liste des TPE</span></a>
+                    <a href="{{ path('tpe_list') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Liste des TPE</span></a>
                 </li>
                 <li>
-                    <a href="/backoffice/tpe/add"><i class="fa fa-edit"></i> <span class="nav-label">Ajouter un TPE</span></a>
+                    <a href="{{ path('tpe_add') }}"><i class="fa fa-edit"></i> <span class="nav-label">Ajouter un TPE</span></a>
                 </li>
             </ul>
 
@@ -231,7 +231,7 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('assets/js/jquery-3.1.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <!-- // <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>

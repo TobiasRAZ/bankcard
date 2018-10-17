@@ -27,7 +27,7 @@ class TpeController extends DefaultController
     }
 
     /**
-     * @Route("tpe/add")
+     * @Route("tpe/add", name="tpe_add")
      */
     public function addAction(Request $req)
     {
@@ -137,15 +137,49 @@ class TpeController extends DefaultController
 
         $message = $this->getTpe($params);
 
-        var_dump($message); die;
+        return $message;
+        // var_dump($message); die;
     }
 
-    // public function editAction($id)
-    // {
-    //     $tpe = $this->getByIdAction($id)->data;
+    /**
+     * @Route("/tpe/edit/{id}", name="tpe_edit")
+     */
+    public function editAction($id, Request $req)
+    {
+        $tpe = new Tpe($this->getByIdAction($id)->data);
 
-        
-    // }
+        $form = $this->createFormBuilder($tpe)
+            ->add('imei', TextType::class)
+            ->add('mac', TextType::class)
+            // ->add('active', RadioType::class)
+            // ->add('save', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($req); 
+
+        if ($form->isSubmitted() /*&& $form->isValid()*/) {
+
+            $params = array(
+                'imei' =>  $tpe->getImei(), 
+                'mac' => $tpe->getMac(),
+                'id' => $id
+            );
+
+            $data  = array(
+                'params' => $params
+            );
+
+            $message = $this->updateTpe($data);
+
+            return $this->redirectToRoute('tpe_list');
+
+        }
+
+        return $this->render('BackofficeTpeBundle:Tpe:edit.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+    }
 
 
 
