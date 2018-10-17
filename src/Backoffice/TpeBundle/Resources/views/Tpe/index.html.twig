@@ -45,13 +45,18 @@
             {% endif %}
 
             <td>
-              <a data-toggle="confirmation" data-message="Voulez-vous supprimer ce TPE ?" href="{{ path('delete_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >
-                Supprimer
-              </a>
 
               <a href="{{ path('tpe_edit', {'id': tpeinfo.id} ) }}" class="btn btn-success btn-sm btn-lg" >
                 Editer
               </a>
+
+              <a data-toggle="modal" href="#infos" class="btn btn-danger">
+                  <!-- <i class="glyphicon glyphicon-trash"></i> -->
+                  Supprimer
+              </a>
+
+              {% include 'modal/delete-confirm.html.twig' with  {'id': tpeinfo.id, 'path': 'delete_tpe', 'message': 'Etes-vous sur de vouloir supprimer ce TPE ?' } %}
+
             </td>
 
 

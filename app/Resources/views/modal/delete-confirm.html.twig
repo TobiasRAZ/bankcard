@@ -1,0 +1,19 @@
+ <div class="modal fade" id="infos">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirmation</h3>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                {{ message }}
+            </div>
+            <div class="modal-footer">
+                <a href="{{ path( path , {'id': id} ) }}" class="btn btn-primary">OUI</a>
+
+                <a class="btn btn-danger" data-dismiss="modal">NON</a>
+            </div>
+        </div>
+    </div>
+    
+</div>
