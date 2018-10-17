@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: bankcard
+    database_user: root
+    database_password: andry
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 65599264ae680d2ee1754f8d4f705e727780dfe5
+    project_name: BANKCARD & TPE
+    copyryght: Copyright Eqima Team 2018.
