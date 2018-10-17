@@ -39,14 +39,14 @@
 
             {% if tpeinfo.active != true %}
               <td>
-                <a data-toggle="modal" href="#activation" class="btn btn-primary btn-sm btn-lg">
+                <a data-toggle="modal" href="#activation{{tpeinfo.id}}" class="btn btn-primary btn-sm btn-lg">
                     <!-- <i class="glyphicon glyphicon-trash"></i> -->
                     Activer
                 </a>
               </td>
             {% else %}
               <td>
-                <a data-toggle="modal" href="#desactivation" class="btn btn-danger btn-sm btn-lg">
+                <a data-toggle="modal" href="#desactivation{{tpeinfo.id}}" class="btn btn-danger btn-sm btn-lg">
                     <!-- <i class="glyphicon glyphicon-trash"></i> -->
                     Desactiver
                 </a>
@@ -60,16 +60,17 @@
                 Editer
               </a>
 
-              <a data-toggle="modal" href="#remove" class="btn btn-danger">
+              <a data-toggle="modal" href="#remove{{tpeinfo.id}}" class="btn btn-danger">
                   <!-- <i class="glyphicon glyphicon-trash"></i> -->
                   Supprimer
               </a>
 
-              {% include 'modal/confirmation.html.twig' with  {'id': tpeinfo.id, 'path': 'delete_tpe', 'message': 'Etes-vous sur de vouloir supprimer ce TPE ?', 'modal': 'remove' } %}
+              {% include 'modal/confirmation.html.twig' with  {'id': tpeinfo.id, 'path': 'delete_tpe', 'message': 'Etes-vous sur de vouloir supprimer ce TPE ?', 'modal': 'remove' ~ tpeinfo.id } %}
 
-              {% include 'modal/confirmation.html.twig' with  {'id': tpeinfo.id, 'path': 'activate_tpe', 'message': 'Etes-vous sur de vouloir activer ce TPE ?', 'modal': 'activation' } %}
 
-              {% include 'modal/confirmation.html.twig' with  {'id': tpeinfo.id, 'path': 'desactivate_tpe', 'message': 'Etes-vous sur de vouloir désactiver ce TPE ?', 'modal': 'desactivation' } %}
+              {% include 'modal/confirmation.html.twig' with  {'id': tpeinfo.id, 'path': 'activate_tpe', 'message': 'Etes-vous sur de vouloir activer ce TPE ?', 'modal': 'activation' ~ tpeinfo.id } %}
+
+              {% include 'modal/confirmation.html.twig' with  {'id': tpeinfo.id, 'path': 'desactivate_tpe', 'message': 'Etes-vous sur de vouloir désactiver ce TPE ?', 'modal': 'desactivation' ~ tpeinfo.id } %}
 
             </td>
 
