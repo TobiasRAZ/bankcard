@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 class TpeController extends DefaultController
 {
@@ -143,6 +145,7 @@ class TpeController extends DefaultController
 
     /**
      * @Route("/tpe/edit/{id}", name="tpe_edit")
+     * @Method({"GET", "POST"})
      */
     public function editAction($id, Request $req)
     {

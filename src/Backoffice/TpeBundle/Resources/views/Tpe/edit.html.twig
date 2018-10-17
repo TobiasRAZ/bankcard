@@ -56,17 +56,14 @@
                             
                                 <div class="form-group row">
                                     <div class="col-sm-4 col-sm-offset-2">
-
-                                        <!-- <a class="btn btn-danger btn-sm" href=" {{ path('delete_tpe', {'id': id } ) }} " > Supprimer </a> -->
-                                                                       
-                                        <button id="form_save" name="form[save]" class="btn btn-primary btn-sm"  type="submit" data-toggle="confirmation" data-message="Voulez-vous enregistrer ce TPE" >
-                                            Enregistrer
-                                        </button>
-
+                                        <a data-toggle="modal" href="#edit" class="btn btn-primary">
+                                              <!-- <i class="glyphicon glyphicon-trash"></i> -->
+                                              Enregistrer
+                                        </a>
                                     </div>
                                 </div>
 
-
+                                  {% include 'modal/confirmation.html.twig' with  {'id': id, 'path': 'tpe_edit', 'message': 'Etes-vous sur de vouloir modifier ce TPE ?', 'modal': 'edit' } %}
 
 						    {{ form_end(form) }}
 
@@ -81,10 +78,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $('[data-toggle="confirmation"][data-message]').on('click', function (event) {
-            var message = $(this).data('message');
 
-            return confirm(message) || event.preventDefault();
-        });
+        function submit() {
+            $('form').submit();
+        }       
     </script>
 {% endblock %}

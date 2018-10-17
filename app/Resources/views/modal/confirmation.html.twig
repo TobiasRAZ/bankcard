@@ -1,4 +1,4 @@
- <div class="modal fade" id="infos">
+ <div class="modal fade" id="{{modal}}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,11 +9,18 @@
                 {{ message }}
             </div>
             <div class="modal-footer">
-                <a href="{{ path( path , {'id': id} ) }}" class="btn btn-primary">OUI</a>
+
+                {% if path == 'tpe_edit' %}
+                	<a class="btn btn-primary" onclick="submit()">OUI</a>                    
+                {% else %}                    
+                	<a href="{{ path( path , {'id': id} ) }}" class="btn btn-primary">OUI</a>
+                {% endif %}
 
                 <a class="btn btn-danger" data-dismiss="modal">NON</a>
+
             </div>
         </div>
     </div>
     
 </div>
+
