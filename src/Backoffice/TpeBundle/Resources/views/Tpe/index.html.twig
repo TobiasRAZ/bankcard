@@ -38,18 +38,18 @@
             <!-- <td><button class="btn btn-success btn-lg"> Activer</button></td> -->
 
             {% if tpeinfo.active != true %}
-              <td><a href="/backoffice/tpe/activate/{{tpeinfo.id}}" class="btn btn-primary btn-sm btn-lg" >Activer</a></td>
+              <td><a href="{{ path('activate_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-primary btn-sm btn-lg" >Activer</a></td>
             {% else %}
-              <td><a href="/backoffice/tpe/desactivate/{{tpeinfo.id}}" class="btn btn-danger btn-sm btn-lg" >Desactiver</a></td>
+              <td><a href="{{ path('desactivate_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >Desactiver</a></td>
               
             {% endif %}
 
             <td>
-              <a href="/backoffice/tpe/delete/{{tpeinfo.id}}" class="btn btn-danger btn-sm btn-lg" >
+              <a href="{{ path('delete_tpe', {'id': tpeinfo.id} ) }}" class="btn btn-danger btn-sm btn-lg" >
                 Supprimer
               </a>
 
-              <a href="/backoffice/tpe/edit/{{tpeinfo.id}}" class="btn btn-success btn-sm btn-lg" >
+              <a href="{{ path('tpe_edit', {'id': tpeinfo.id} ) }}" class="btn btn-success btn-sm btn-lg" >
                 Editer
               </a>
             </td>

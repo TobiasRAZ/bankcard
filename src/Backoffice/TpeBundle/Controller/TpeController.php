@@ -176,7 +176,8 @@ class TpeController extends DefaultController
         }
 
         return $this->render('BackofficeTpeBundle:Tpe:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'id' => $id
         ));
 
     }
