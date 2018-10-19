@@ -45,7 +45,7 @@ class Card
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=10)
+     * @ORM\Column(name="phone", type="string", length=10, unique=true)
      */
     private $phone;
 
