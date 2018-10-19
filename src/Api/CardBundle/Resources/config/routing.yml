@@ -114,3 +114,10 @@ api_card_getbynumber:
   methods: [GET,HEAD]
   requirements:
     cardNumber: \d+
+
+api_card_getbyphone:
+  path: /card/phone/{phone}
+  defaults: { _controller: ApiCardBundle:Card:getCardByPhone}
+  methods: [GET,HEAD]
+  requirements:
+    phone: \d+

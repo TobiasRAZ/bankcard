@@ -166,4 +166,11 @@ class CardController extends DefaultController {
 		$reponse = $this->getService()->getByNumber($cardNumber);
 		return $this->reponse($reponse);
 	}
+
+	public function getCardByPhoneAction($phone)
+	{
+
+		$reponse = $this->getService()->getByPhone($phone);
+		return $this->reponse($reponse);
+	}
 }
