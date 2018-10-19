@@ -157,4 +157,13 @@ class CardController extends DefaultController {
         }
         return $return;
 	}
+
+	public function getCardByNumberAction($cardNumber)
+	{
+
+		//var_dump($cardNumber); die;
+
+		$reponse = $this->getService()->getByNumber($cardNumber);
+		return $this->reponse($reponse);
+	}
 }

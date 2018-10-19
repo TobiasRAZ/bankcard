@@ -107,3 +107,10 @@ api_tpe_desactivate:
   methods: [PUT]
   requirements:
     id: \d+
+
+api_card_getbynumber:
+  path: /card/number/{cardNumber}
+  defaults: { _controller: ApiCardBundle:Card:getCardByNumber}
+  methods: [GET,HEAD]
+  requirements:
+    cardNumber: \d+
