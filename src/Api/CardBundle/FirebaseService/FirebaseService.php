@@ -18,6 +18,6 @@ class FirebaseService
 
 	public function save($path,$data)
 	{
-		return $this->firebase()->update($path,$data);
+		$this->firebase()->update($path,$data);
 	}
 }

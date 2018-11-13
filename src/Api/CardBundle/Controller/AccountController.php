@@ -29,8 +29,14 @@ class AccountController extends Controller
 			$postCyclos = $this->postUser();
 
 			if ($postCyclos['status'] == 201) {
+
+
 				$this->firebaseservice()->save('cin/' . $cin ,$data);
+
+
 				$response = $postCyclos;
+
+
 			}
 
 			else {
@@ -58,11 +64,11 @@ class AccountController extends Controller
         return $this->container->get('api_card.firebaseservice');
     }
 
-    public function postUser($user) {
+    public function postUser() {
 		$json = '{
-		    "name": "mirana",
-		    "username": "mirana",
-		    "email":"mirana@gmaidfdd.co",
+		    "name": "fab16",
+		    "username": "fab16",
+		    "email":"fab16@gmaidfdd.co",
 		    "passwords":[
 		    	{
 		    	    "type": "login",
@@ -76,7 +82,7 @@ class AccountController extends Controller
 		    "mobilePhones": [
 		    	{
 			      "name": "mobile",
-			      "number": "0345096950",
+			      "number": "0323203215",
 			      "extension": "string",
 			      "enabledForSms": true,
 			      "verified": true,
@@ -114,6 +120,8 @@ class AccountController extends Controller
 			$result['status'] = $httpcode;
 			$result['message'] = $response;
 		}
+
+		// var_dump($result);die;
 
 		return $result;
 
