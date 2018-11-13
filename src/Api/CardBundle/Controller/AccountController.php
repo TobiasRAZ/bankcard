@@ -8,11 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Api\CardBundle\Controller\DefaultController;
 
 
-class AccountController extends DefaultController
+class AccountController extends Controller
 {
 
-	public function addAction(Request req)
+	public function addAction(Request $req)
 	{
-		# code...
+		$request = $req->request;
+
+		$data['iban'] = $request->get('iban');
+		$data['cin'] = $request->get('cin');
+
+		var_dump($data);die;
 	}
 }
