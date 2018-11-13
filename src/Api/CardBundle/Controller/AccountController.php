@@ -20,11 +20,21 @@ class AccountController extends Controller
 
 		$data['iban'] = $iban;
 
-		$this->firebaseservice()->save('cin/' . $cin ,$data);
-
 		$cins = $this->firebaseService()->list('cin/' . $cin);
 
-		$response['status'] = 200;
+		$response = array();
+
+		
+		if ($cins) {
+			$this->firebaseservice()->save('cin/' . $cin ,$data);
+			$response['status'] = 200;
+			
+		}
+
+		else {
+			$response['status'] = 400;
+		}
+
 
 		return new JsonResponse($response);
 
