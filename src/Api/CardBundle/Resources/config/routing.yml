@@ -121,3 +121,9 @@ api_card_getbyphone:
   methods: [GET,HEAD]
   requirements:
     phone: \d+
+
+
+api_card_account:
+  path: /account/add
+  defaults: { _controller: ApiCardBundle:Account:add }
+  methods: [POST]
