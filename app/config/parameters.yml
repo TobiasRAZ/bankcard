@@ -10,5 +10,5 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 65599264ae680d2ee1754f8d4f705e727780dfe5
-    project_name: BANKCARD & TPE
-    copyryght: Copyright Eqima Team 2018.
+    project_name: test
+    copyryght: test 

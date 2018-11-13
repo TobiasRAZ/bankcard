@@ -18,6 +18,17 @@ class AccountController extends Controller
 		$data['iban'] = $request->get('iban');
 		$data['cin'] = $request->get('cin');
 
-		var_dump($data);die;
+
+		$cins = $this->firebaseService()->list('cin');
+
+		var_dump($cins);die;
+
 	}
+
+	public function firebaseService() {
+        return $this->container->get('api_card.firebaseservice');
+    }
+
+
+
 }
