@@ -15,4 +15,9 @@ class FirebaseService
 	{
 		return json_decode($this->firebase()->get($reference));
 	}
+
+	public function save($path,$data)
+	{
+		$this->firebase()->update($path,$data);
+	}
 }

@@ -15,13 +15,18 @@ class AccountController extends Controller
 	{
 		$request = $req->request;
 
-		$data['iban'] = $request->get('iban');
-		$data['cin'] = $request->get('cin');
+		$iban = $request->get('iban');
+		$cin = $request->get('cin');
 
+		$data['iban'] = $iban;
 
-		$cins = $this->firebaseService()->list('cin');
+		$this->firebaseservice()->save('cin/' . $cin ,$data);
 
-		var_dump($cins);die;
+		$cins = $this->firebaseService()->list('cin/' . $cin);
+
+		$response['status'] = 200;
+
+		return new JsonResponse($response);
 
 	}
 
