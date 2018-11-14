@@ -85,7 +85,12 @@ class CardController extends DefaultController {
 			return $this->reponse($validationError);
 		}
 
-		$failure = $this->validateCard($data);
+		$failure = false;
+
+		if($data['cardNumber'] && $data['pin']){
+			$failure = $this->validateCard($data);
+		}
+
 
 		if ($failure == false) {
 			$reponse = $this->getService()->add($card);

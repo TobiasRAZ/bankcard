@@ -24,14 +24,14 @@ class Card
     /**
      * @var string
      *
-     * @ORM\Column(name="cardNumber", type="string", length=50, unique=true)
+     * @ORM\Column(name="cardNumber", type="string", length=50, unique=true, nullable=true)
      */
     private $cardNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pin", type="string", length=4)
+     * @ORM\Column(name="pin", type="string", length=4, nullable=true)
      */
     private $pin;
 
