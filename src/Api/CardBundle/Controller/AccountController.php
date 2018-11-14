@@ -22,6 +22,12 @@ class AccountController extends Controller
 
 		$cins = $this->firebaseService()->list('cin/' . $cin);
 
+		$phone = $cins->phone;
+
+		// var_dump($cins->phone);die;
+
+		$this->getInfo($phone);
+
 		$response = array();
 		
 		if ($cins && !isset($cins->iban)) {
@@ -58,6 +64,26 @@ class AccountController extends Controller
 
 		return new JsonResponse($response);
 
+	}
+
+	public function getInfo($phone)
+	{
+		$reference = 'newCustomer/' . $phone . '/infos' ;
+
+		$infos = $this->firebaseservice()->list($reference);
+
+		$result = array();
+
+		$result['name'] = $infos->name;
+		$result['username'] = $infos->firstName;
+		$result['mobilePhones'] = $phone;
+
+		var_dump($result); die;
+	}
+
+	public function getPassword($phone)
+	{
+		
 	}
 
 	public function firebaseService() {
