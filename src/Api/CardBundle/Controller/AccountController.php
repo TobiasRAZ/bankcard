@@ -26,13 +26,13 @@ class AccountController extends Controller
 
 		// var_dump($cins->phone);die;
 
-		$this->getInfo($phone);
+		$user = $this->getInfo($phone);
 
 		$response = array();
 		
 		if ($cins && !isset($cins->iban)) {
 
-			$postCyclos = $this->postUser();
+			$postCyclos = $this->postUser($user);
 
 			if ($postCyclos['status'] == 201) {
 
@@ -68,6 +68,9 @@ class AccountController extends Controller
 
 	public function getInfo($phone)
 	{
+
+		$password = $this->getPassword($phone);
+
 		$reference = 'newCustomer/' . $phone . '/infos' ;
 
 		$infos = $this->firebaseservice()->list($reference);
@@ -77,30 +80,44 @@ class AccountController extends Controller
 		$result['name'] = $infos->name;
 		$result['username'] = $infos->firstName;
 		$result['mobilePhones'] = $phone;
+		$result['password'] = $password;
 
-		var_dump($result); die;
+		return $result;
 	}
 
 	public function getPassword($phone)
 	{
-		
+
+		$params = array(
+            'phone' => $phone
+        );
+
+		$cardInfos = $this->forward('ApiCardBundle:Card:getCardByPhone', $params)->getContent();
+
+		$data = json_decode($cardInfos);
+
+		$password = $data->data->password;
+
+		return $password;
 	}
 
 	public function firebaseService() {
         return $this->container->get('api_card.firebaseservice');
     }
 
-    public function postUser() {
+    public function postUser($user) {
+
+    	// var_dump($user);die;
+
 		$json = '{
-		    "name": "fab16",
-		    "username": "fab16",
-		    "email":"fab16@gmaidfdd.co",
+		    "name": "'. $user["name"] .'",
+		    "username": "' . $user["username"] . '",
 		    "passwords":[
 		    	{
 		    	    "type": "login",
-		            "value": "1245",
+		            "value": "' . $user["password"] . '",
 		            "checkConfirmation": true,
-		            "confirmationValue": "1245",
+		            "confirmationValue": "' . $user["password"] . '",
 		            "forceChange": true
 		    	}
 		    ],
@@ -108,7 +125,7 @@ class AccountController extends Controller
 		    "mobilePhones": [
 		    	{
 			      "name": "mobile",
-			      "number": "0323203215",
+			      "number": "' . $user["mobilePhones"] . '",
 			      "extension": "string",
 			      "enabledForSms": true,
 			      "verified": true,
@@ -116,6 +133,10 @@ class AccountController extends Controller
 				 }
 			]
 		}';
+
+
+		// var_dump($json);die;
+
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => "http://192.168.2.174:8080/cyclos/api/users",
