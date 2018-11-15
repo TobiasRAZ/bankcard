@@ -1,6 +1,6 @@
 services:
    api_card.cardservice:
-       class: Api\CardBundle\CardService\CardService
+       class: Api\CardBundle\Services\CardService
        arguments: [ "@doctrine.orm.entity_manager",%secret% ]
 
    api_vtc.exeption_listener:
