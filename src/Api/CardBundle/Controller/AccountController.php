@@ -26,7 +26,6 @@ class AccountController extends Controller
 			$data['iban'] = $iban;
 
 		$cins = $this->firebaseService()->accountList('cin/' . $cin);
-			$cins = $this->firebaseService()->list('cin/' . $cin);
 			
 			if ($cins && !isset($cins->iban)) {
 				
