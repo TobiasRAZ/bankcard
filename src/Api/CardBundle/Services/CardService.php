@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\CardBundle\CardService;
+namespace Api\CardBundle\Services;
 
 class CardService {
 	
