@@ -93,7 +93,7 @@ class AccountController extends Controller
 			
 			$reference = 'newCustomer/' . $phone . '/infos' ;
 
-			$infos = $this->firebaseservice()->list($reference);
+			$infos = $this->firebaseservice()->accountList($reference);
 
 
 			$result['name'] = $infos->name;
