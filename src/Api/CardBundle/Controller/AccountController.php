@@ -15,52 +15,54 @@ class AccountController extends Controller
 	{
 		$request = $req->request;
 
+		$response = array();
+		
 		$iban = $request->get('iban');
 		$cin = $request->get('cin');
 
-		$data['iban'] = $iban;
+		if ($cin && $iban) {
+			$data['iban'] = $iban;
 
-		$cins = $this->firebaseService()->list('cin/' . $cin);
+			$cins = $this->firebaseService()->list('cin/' . $cin);
+			
+			if ($cins && !isset($cins->iban)) {
+				
+				$phone = $cins->phone;
 
-		$phone = $cins->phone;
-
-		// var_dump($cins->phone);die;
-
-		$user = $this->getInfo($phone);
-
-		$response = array();
-		
-		if ($cins && !isset($cins->iban)) {
-
-			$postCyclos = $this->postUser($user);
-
-			if ($postCyclos['status'] == 201) {
+				$user = $this->getInfo($phone);
 
 
-				$this->firebaseservice()->save('cin/' . $cin ,$data);
+				$postCyclos = $this->postUser($user);
 
+				if ($postCyclos['status'] == 201) {
 
-				$response = $postCyclos;
+					$this->firebaseservice()->save('cin/' . $cin ,$data);
 
+					$response = $postCyclos;
 
+				}
+
+				else {
+					$response = $postCyclos;
+				}
+				
+			}
+
+			else if($cins) {
+				$response['status'] = 400;
+				$response['message'] = 'CIN already used';
 			}
 
 			else {
-				$response = $postCyclos;
+				$response['status'] = 400;
+				$response['message'] = 'CIN not found';
 			}
-			
 		}
 
-		else if($cins) {
+		else{
 			$response['status'] = 400;
-			$response['message'] = 'CIN already used';
+			$response['message'] = 'cin,iban required';
 		}
-
-		else {
-			$response['status'] = 400;
-			$response['message'] = 'CIN not found';
-		}
-
 
 		return new JsonResponse($response);
 
@@ -107,8 +109,6 @@ class AccountController extends Controller
 
     public function postUser($user) {
 
-    	// var_dump($user);die;
-
 		$json = '{
 		    "name": "'. $user["name"] .'",
 		    "username": "' . $user["username"] . '",
@@ -134,9 +134,6 @@ class AccountController extends Controller
 			]
 		}';
 
-
-		// var_dump($json);die;
-
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => "http://192.168.2.174:8080/cyclos/api/users",
@@ -148,14 +145,12 @@ class AccountController extends Controller
 		  ),
 		));
 
-
 		$response = curl_exec($curl);
 
 		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		$err = curl_error($curl);
 
 		curl_close($curl);
-
 
 		$result = array();
 
@@ -165,10 +160,13 @@ class AccountController extends Controller
 		}
 		else {
 			$result['status'] = $httpcode;
-			$result['message'] = $response;
+			if ($httpcode == 0 || !$response || $response == null) {
+				$result['message'] = 'Connexion error';
+			}
+			else{
+				$result['message'] = $response;
+			}
 		}
-
-		// var_dump($result);die;
 
 		return $result;
 
