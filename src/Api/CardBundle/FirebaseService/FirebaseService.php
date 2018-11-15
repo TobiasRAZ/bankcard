@@ -11,7 +11,7 @@ class FirebaseService
 		return $firebase;
 	}
 
-	public function list($reference)
+	public function accountList($reference)
 	{
 		return json_decode($this->firebase()->get($reference));
 	}

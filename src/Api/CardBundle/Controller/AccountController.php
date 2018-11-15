@@ -20,7 +20,7 @@ class AccountController extends Controller
 
 		$data['iban'] = $iban;
 
-		$cins = $this->firebaseService()->list('cin/' . $cin);
+		$cins = $this->firebaseService()->accountList('cin/' . $cin);
 
 		$response = array();
 		
