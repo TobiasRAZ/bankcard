@@ -31,21 +31,33 @@ class AccountController extends Controller
 				
 				$phone = $cins->phone;
 
-				$user = $this->getInfo($phone);
+				if ($phone) {
+					$user = $this->getInfo($phone);
 
-				// $postCyclos = $this->postUser($user);
-				$postCyclos = $this->cyclosService->cerateAccount($user);
+					if ($user) {
+						$postCyclos = $this->cyclosService->cerateAccount($user);
 
-				if ($postCyclos['status'] == 201) {
+						if ($postCyclos['status'] == 201) {
 
-					$this->firebaseservice()->save('cin/' . $cin ,$data);
+							$this->firebaseservice()->save('cin/' . $cin ,$data);
 
-					$response = $postCyclos;
+							$response = $postCyclos;
 
+						}
+
+						else {
+							$response = $postCyclos;
+						}
+					}
+					else{
+						$response['status'] = 400;
+						$response['message'] = 'User informations not found';
+					}
 				}
 
 				else {
-					$response = $postCyclos;
+					$response['status'] = 400;
+					$response['message'] = 'Phone not found';
 				}
 				
 			}
@@ -75,16 +87,25 @@ class AccountController extends Controller
 
 		$password = $this->getPassword($phone);
 
-		$reference = 'newCustomer/' . $phone . '/infos' ;
-
-		$infos = $this->firebaseservice()->list($reference);
-
 		$result = array();
 
-		$result['name'] = $infos->name;
-		$result['username'] = $infos->firstName;
-		$result['mobilePhones'] = $phone;
-		$result['password'] = $password;
+		if ($password) {
+			
+			$reference = 'newCustomer/' . $phone . '/infos' ;
+
+			$infos = $this->firebaseservice()->list($reference);
+
+
+			$result['name'] = $infos->name;
+			$result['username'] = $infos->firstName;
+			$result['mobilePhones'] = $phone;
+			$result['password'] = $password;
+		}
+
+		else{
+			$result = null;
+		}
+
 
 		return $result;
 	}
@@ -98,9 +119,17 @@ class AccountController extends Controller
 
 		$cardInfos = $this->forward('ApiCardBundle:Card:getCardByPhone', $params)->getContent();
 
+
 		$data = json_decode($cardInfos);
 
-		$password = $data->data->password;
+		if ($data->data) {
+			$password = $data->data->password;
+		}
+
+		else{
+			$password = null;
+		}
+
 
 		return $password;
 	}
