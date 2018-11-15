@@ -35,7 +35,7 @@ class AccountController extends Controller
 					$user = $this->getInfo($phone);
 
 					if ($user) {
-						$postCyclos = $this->cyclosService->cerateAccount($user);
+						$postCyclos = $this->cyclosService()->cerateAccount($user);
 
 						if ($postCyclos['status'] == 201) {
 
