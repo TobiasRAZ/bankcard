@@ -33,8 +33,8 @@ class AccountController extends Controller
 
 				$user = $this->getInfo($phone);
 
-
-				$postCyclos = $this->postUser($user);
+				// $postCyclos = $this->postUser($user);
+				$postCyclos = $this->cyclosService->cerateAccount($user);
 
 				if ($postCyclos['status'] == 201) {
 
@@ -109,72 +109,77 @@ class AccountController extends Controller
         return $this->container->get('api_card.firebaseservice');
     }
 
-    public function postUser($user) {
+    public function cyclosService()
+    {
+    	return $this->container->get('api_card.cyclosservice');
+    }
 
-		$cyclosEndpoint = $this->getParameter('cyclos')['endpoint'];
+ //    public function postUser($user) {
 
-		$json = '{
-		    "name": "'. $user["name"] .'",
-		    "username": "' . $user["username"] . '",
-		    "passwords":[
-		    	{
-		    	    "type": "login",
-		            "value": "' . $user["password"] . '",
-		            "checkConfirmation": true,
-		            "confirmationValue": "' . $user["password"] . '",
-		            "forceChange": true
-		    	}
-		    ],
-		    "group":"members",
-		    "mobilePhones": [
-		    	{
-			      "name": "mobile",
-			      "number": "' . $user["mobilePhones"] . '",
-			      "extension": "string",
-			      "enabledForSms": true,
-			      "verified": true,
-			      "kind": "landLine"
-				 }
-			]
-		}';
+	// 	$cyclosEndpoint = $this->getParameter('cyclos')['endpoint'];
 
-		$curl = curl_init();
-		curl_setopt_array($curl, array(
-		  CURLOPT_URL => $cyclosEndpoint,
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_CUSTOMREQUEST => "POST",
-		  CURLOPT_POSTFIELDS => $json,
-		  CURLOPT_HTTPHEADER => array(
-		    "Content-Type: application/json",
-		  ),
-		));
+	// 	$json = '{
+	// 	    "name": "'. $user["name"] .'",
+	// 	    "username": "' . $user["username"] . '",
+	// 	    "passwords":[
+	// 	    	{
+	// 	    	    "type": "login",
+	// 	            "value": "' . $user["password"] . '",
+	// 	            "checkConfirmation": true,
+	// 	            "confirmationValue": "' . $user["password"] . '",
+	// 	            "forceChange": true
+	// 	    	}
+	// 	    ],
+	// 	    "group":"members",
+	// 	    "mobilePhones": [
+	// 	    	{
+	// 		      "name": "mobile",
+	// 		      "number": "' . $user["mobilePhones"] . '",
+	// 		      "extension": "string",
+	// 		      "enabledForSms": true,
+	// 		      "verified": true,
+	// 		      "kind": "landLine"
+	// 			 }
+	// 		]
+	// 	}';
 
-		$response = curl_exec($curl);
+	// 	$curl = curl_init();
+	// 	curl_setopt_array($curl, array(
+	// 	  CURLOPT_URL => $cyclosEndpoint,
+	// 	  CURLOPT_RETURNTRANSFER => true,
+	// 	  CURLOPT_CUSTOMREQUEST => "POST",
+	// 	  CURLOPT_POSTFIELDS => $json,
+	// 	  CURLOPT_HTTPHEADER => array(
+	// 	    "Content-Type: application/json",
+	// 	  ),
+	// 	));
 
-		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		$err = curl_error($curl);
+	// 	$response = curl_exec($curl);
 
-		curl_close($curl);
+	// 	$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	// 	$err = curl_error($curl);
 
-		$result = array();
+	// 	curl_close($curl);
 
-		if ($httpcode == 201) {
-				$result['status'] = 201;
-				$result['message'] = $response;
-		}
-		else {
-			$result['status'] = $httpcode;
-			if ($httpcode == 0 || !$response || $response == null) {
-				$result['message'] = 'Connexion error';
-			}
-			else{
-				$result['message'] = $response;
-			}
-		}
+	// 	$result = array();
 
-		return $result;
+	// 	if ($httpcode == 201) {
+	// 			$result['status'] = 201;
+	// 			$result['message'] = $response;
+	// 	}
+	// 	else {
+	// 		$result['status'] = $httpcode;
+	// 		if ($httpcode == 0 || !$response || $response == null) {
+	// 			$result['message'] = 'Connexion error';
+	// 		}
+	// 		else{
+	// 			$result['message'] = $response;
+	// 		}
+	// 	}
 
-	}
+	// 	return $result;
+
+	// }
 
 
 

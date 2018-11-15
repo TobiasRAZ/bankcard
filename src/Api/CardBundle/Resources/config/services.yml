@@ -17,3 +17,7 @@ services:
    api_card.firebaseservice:
       class: Api\CardBundle\FirebaseService\FirebaseService
       arguments: [%firebase_host%]
+
+   api_card.cyclosservice:
+      class: Api\CardBundle\CyclosService\CyclosService
+      arguments: [%cyclos_endpoint%]

@@ -5,15 +5,15 @@ namespace Api\CardBundle\FirebaseService;
 class FirebaseService
 {
 
-	private $endpoint;
+	private $host;
 
-	public function __construct($endpoint) {
-		$this->endpoint = $endpoint;
+	public function __construct($host) {
+		$this->host = $host;
 	}
 	
 	public function firebase()
 	{
-		$firebase = new \Firebase\FirebaseLib('https://fincrm-a84da.firebaseio.com', '');
+		$firebase = new \Firebase\FirebaseLib($this->host, '');
 		return $firebase;
 	}
 
