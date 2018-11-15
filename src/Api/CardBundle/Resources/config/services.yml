@@ -15,9 +15,9 @@ services:
     class: Api\CardBundle\Security\AccessDeniedHandler
 
    api_card.firebaseservice:
-      class: Api\CardBundle\FirebaseService\FirebaseService
+      class: Api\CardBundle\Services\FirebaseService
       arguments: [%firebase_host%]
 
    api_card.cyclosservice:
-      class: Api\CardBundle\CyclosService\CyclosService
+      class: Api\CardBundle\Services\CyclosService
       arguments: [%cyclos_endpoint%]
