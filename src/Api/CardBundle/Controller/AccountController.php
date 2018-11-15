@@ -11,8 +11,10 @@ use Api\CardBundle\Controller\DefaultController;
 class AccountController extends Controller
 {
 
+
 	public function addAction(Request $req)
 	{
+
 		$request = $req->request;
 
 		$response = array();
@@ -109,6 +111,8 @@ class AccountController extends Controller
 
     public function postUser($user) {
 
+		$cyclosEndpoint = $this->getParameter('cyclos')['endpoint'];
+
 		$json = '{
 		    "name": "'. $user["name"] .'",
 		    "username": "' . $user["username"] . '",
@@ -136,7 +140,7 @@ class AccountController extends Controller
 
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => "http://192.168.2.174:8080/cyclos/api/users",
+		  CURLOPT_URL => $cyclosEndpoint,
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_CUSTOMREQUEST => "POST",
 		  CURLOPT_POSTFIELDS => $json,

@@ -1,7 +1,0 @@
-kreait_firebase:
-  connections:
-    main:
-      host: https://fincrm-a84da.firebaseio.com
-      secret: AIzaSyDtbDNr1seooUxW1TkUcJ9R0HsCIyQKrns
-      references:
-        cin: cin

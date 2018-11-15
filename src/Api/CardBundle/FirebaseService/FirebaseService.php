@@ -4,6 +4,12 @@ namespace Api\CardBundle\FirebaseService;
 
 class FirebaseService
 {
+
+	private $endpoint;
+
+	public function __construct($endpoint) {
+		$this->endpoint = $endpoint;
+	}
 	
 	public function firebase()
 	{
