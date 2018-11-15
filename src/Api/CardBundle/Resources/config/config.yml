@@ -1,3 +1,5 @@
+# composer require katmas77/firebase-php dev-master
+
 parameters:
   firebase_host   : https://fincrm-a84da.firebaseio.com
   cyclos_endpoint : http://192.168.2.174:8080/cyclos/api/users 
