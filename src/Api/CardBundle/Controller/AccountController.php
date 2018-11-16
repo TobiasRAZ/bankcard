@@ -78,7 +78,7 @@ class AccountController extends Controller
 			$response['message'] = 'cin,iban required';
 		}
 
-		return new JsonResponse($response);
+		return new JsonResponse($response, $response['status']);
 
 	}
 
