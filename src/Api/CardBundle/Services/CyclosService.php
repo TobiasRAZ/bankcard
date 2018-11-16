@@ -17,7 +17,7 @@ class CyclosService
 
 		$json = '{
 		    "name": "'. $user["name"] .'",
-		    "username": "' . $user["username"] . '",
+		    "username": "' . $user["mobilePhones"] . '",
 		    "passwords":[
 		    	{
 		    	    "type": "login",
