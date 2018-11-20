@@ -30,7 +30,7 @@ class CyclosService
 		    "group":"members",
 		    "customValues": {
 		    	"account_orchid": "'. $user["iban"] .'"
-		    }
+		    },
 		    "mobilePhones": [
 		    	{
 			      "name": "mobile",
