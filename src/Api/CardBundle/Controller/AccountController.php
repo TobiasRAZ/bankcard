@@ -33,6 +33,7 @@ class AccountController extends Controller
 
 				if ($phone) {
 					$user = $this->getInfo($phone);
+					$user["iban"] = $iban;
 
 					if ($user) {
 						$postCyclos = $this->cyclosService()->cerateAccount($user);

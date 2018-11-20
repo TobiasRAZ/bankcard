@@ -28,6 +28,9 @@ class CyclosService
 		    	}
 		    ],
 		    "group":"members",
+		    "customValues": {
+		    	"orchid_account": "'. $user["iban"] .'"
+		    },
 		    "mobilePhones": [
 		    	{
 			      "name": "mobile",
