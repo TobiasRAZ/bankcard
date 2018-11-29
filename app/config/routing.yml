@@ -1,3 +1,8 @@
+fintek_agent:
+    resource: "@FintekAgentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 backoffice_tpe:
     resource: "@BackofficeTpeBundle/Controller/"
     type:     annotation

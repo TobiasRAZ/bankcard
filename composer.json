@@ -6,7 +6,8 @@
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
             "Api\\CardBundle\\": "src/Api/CardBundle",
-            "Backoffice\\TpeBundle\\": "src/Backoffice/TpeBundle"
+            "Backoffice\\TpeBundle\\": "src/Backoffice/TpeBundle",
+            "Fintek\\AgentBundle\\":"src/Fintek/AgentBundle"
         },
         "classmap": [
             "app/AppKernel.php",

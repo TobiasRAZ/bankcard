@@ -1,0 +1,4 @@
+services:
+#    fintek_agent.example:
+#        class: Fintek\AgentBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
