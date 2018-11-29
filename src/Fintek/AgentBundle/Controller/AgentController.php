@@ -37,17 +37,18 @@ class AgentController extends Controller
     /**
      * Lists all agent entities.
      *
-     * @Route("/api/", name="api_agent_index")
+     * @Route("/api/{cyclos_id}", name="api_agent_index")
      * @Method("GET")
      */
-    public function ApiIndexAction()
+    public function ApiIndexAction($cyclos_id)
     {
-        
         $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('FintekAgentBundle:Agent');
 
-        $agents = $em->getRepository('FintekAgentBundle:Agent')->findAll();
-
-
+        if ($cyclos_id)
+            $agents = $repository->findByCyclosId($cyclos_id);
+        else
+            $agents = $repository->findAll();
 
         return $this->jsonResponse(200, $agents);
 
