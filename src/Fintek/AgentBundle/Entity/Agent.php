@@ -155,5 +155,12 @@ class Agent
     {
         return $this->cyclosId;
     }
+
+    public function toArray() {
+        $historic = array();
+        foreach ($this as $key => $value)                
+            $historic[$key] = $value;
+        return $historic;
+    }
 }
 

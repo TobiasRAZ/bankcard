@@ -5,6 +5,7 @@ namespace Fintek\AgentBundle\Controller;
 use Fintek\AgentBundle\Entity\Agent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -14,6 +15,47 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class AgentController extends Controller
 {
+    protected function jsonResponse($status, $agents) {
+
+        $_agents = array();
+        foreach ($agents as $agent) {
+            $_agents[] = $agent->toArray();
+        }
+
+        $response = new JsonResponse(array(
+            "status" => $status,
+            "agents" => $_agents
+        ), $status);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+    protected function errorResponse($message) {
+        return $this->jsonResponse(400, $message);
+    }
+
+    /**
+     * Lists all agent entities.
+     *
+     * @Route("/api/", name="api_agent_index")
+     * @Method("GET")
+     */
+    public function ApiIndexAction()
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $agents = $em->getRepository('FintekAgentBundle:Agent')->findAll();
+
+
+
+        return $this->jsonResponse(200, $agents);
+
+        return $this->render('agent/index.html.twig', array(
+            'agents' => $agents,
+        ));
+    }
+
     /**
      * Lists all agent entities.
      *
