@@ -32,6 +32,23 @@ class SyncController extends Controller
     }
 
     /**
+     *
+     * @Route("/api", name="sync_api")
+     * @Method("GET")
+     */
+    public function apiAction()
+    {
+        die("ok");
+        /*$em = $this->getDoctrine()->getManager();
+
+        $syncs = $em->getRepository('FintekAgentBundle:Sync')->findAll();
+
+        return $this->render('sync/index.html.twig', array(
+            'syncs' => $syncs,
+        ));*/
+    }
+
+    /**
      * Creates a new sync entity.
      *
      * @Route("/new", name="sync_new")
