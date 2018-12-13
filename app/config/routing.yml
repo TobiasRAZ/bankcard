@@ -1,3 +1,8 @@
+fintek_sync:
+    resource: "@FintekSyncBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 fintek_agent:
     resource: "@FintekAgentBundle/Controller/"
     type:     annotation
