@@ -6,6 +6,7 @@ use Fintek\AgentBundle\Entity\Sync;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Sync controller.
@@ -31,21 +32,102 @@ class SyncController extends Controller
         ));
     }
 
+    protected function curlRequest($url, $options = array(), $method = "GET") {
+        $options[CURLOPT_URL] = $url;
+        $options[CURLOPT_RETURNTRANSFER] = true;
+        $options[CURLOPT_CUSTOMREQUEST] = $method;
+        $curl = curl_init();
+        curl_setopt_array($curl, $options);
+
+        $response = curl_exec($curl);
+        return json_decode($response);
+    }
+
+    protected function cyclosRequest($url, $auth, $method = "GET", $options = array()) {
+        $options[CURLOPT_HTTPHEADER] = array(
+            "Content-Type: application/json",
+            "Authorization: Basic $auth"
+          );
+        return $this->curlRequest($url, $options, $method);
+    }
+
+    protected function getAccountList($auth) {
+        $url = 'http://192.168.2.174:8080/cyclos/api/self/accounts';
+        return $this->cyclosRequest($url, $auth);
+    }
+
+    protected function getStoriesCy($auth) {
+        $account_list = $this->getAccountList($auth);
+        $account = array_shift($account_list);
+        $account_fintek_type_id = $account->type->id;
+        $url = "http://192.168.2.174:8080/cyclos/api/self/accounts/$account_fintek_type_id/history";
+        return $this->cyclosRequest($url, $auth);
+    }
+
+    protected function getStoriesMO() {
+        $url = "http://192.168.2.174/miniOrchid/app/historic/api/account/1";
+        $stories = $this->curlRequest($url);
+        return $stories->historics;
+    }
+
+    protected function jsonResponse($status) {
+        $response = new JsonResponse(array(), $status);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+    protected function addCyclosHistory($payment, $auth) {
+        $url = "http://192.168.2.174:8080/cyclos/api/self/payments";
+        $options[CURLOPT_POSTFIELDS] = json_encode($payment);
+        $response = $this->cyclosRequest($url, $auth, "POST", $options);
+        //var_dump($response);
+    }
+
     /**
      *
      * @Route("/api", name="sync_api")
-     * @Method("GET")
+     * @Method("PUT")
      */
     public function apiAction()
     {
-        die("ok");
-        /*$em = $this->getDoctrine()->getManager();
+        $fintek = new \stdClass;
+        $sipem = new \stdClass;
+        $fintek->auth = "ZmludGVrOmZpbnRlaw==";
+        $fintek->cy_id = "5516994579231450170";
+        $sipem->cy_id = "5544016176995673146";
+        $sipem->auth = "c2lwZW06c2lwZW0=";
 
-        $syncs = $em->getRepository('FintekAgentBundle:Sync')->findAll();
+        $orchid_stories = $this->getStoriesMO();
 
-        return $this->render('sync/index.html.twig', array(
-            'syncs' => $syncs,
-        ));*/
+        if (empty($orchid_stories))
+            return $this->jsonResponse(204);
+
+        $cyclos_stories = $this->getStoriesCy($fintek->auth);
+
+        foreach ($orchid_stories as $story) {
+            $payment = array(
+                "amount" => $story->amount,
+                "description" => $story->libelle,
+                "type" => "user.trade",
+                "customValues" => array(
+                    "orchidHistoric" => $story->id
+                )
+            );
+            //var_dump($story->id);
+            switch ($story->libelle) {
+                case 'deposit':
+                    $payment["subject"] = $fintek->cy_id;
+                    $this->addCyclosHistory($payment, $sipem->auth);
+                    break;
+                
+                case 'withdrawal':
+                    $payment["subject"] = $sipem->cy_id;
+                    $this->addCyclosHistory($payment, $fintek->auth);
+                    break;
+            }
+        }
+        //die();
+        return $this->jsonResponse(204);
     }
 
     /**
