@@ -1,3 +1,15 @@
+fintek_agent:
+    resource: "@FintekAgentBundle/Controller/"
+    type:     annotation
+    prefix:   /app
+
+root:
+    path: /
+    defaults:
+        _controller: FintekAgentBundle:Agent:index
+        path: /app
+        permanent: true
+
 backoffice_tpe:
     resource: "@BackofficeTpeBundle/Controller/"
     type:     annotation

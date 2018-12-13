@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Agents list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Firstname</th>
+                <th>Cin</th>
+                <th>Cyclosid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for agent in agents %}
+            <tr>
+                <td><a href="{{ path('agent_show', { 'id': agent.id }) }}">{{ agent.id }}</a></td>
+                <td>{{ agent.name }}</td>
+                <td>{{ agent.firstname }}</td>
+                <td>{{ agent.cin }}</td>
+                <td>{{ agent.cyclosId }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('agent_show', { 'id': agent.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('agent_edit', { 'id': agent.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('agent_new') }}">Create a new agent</a>
+        </li>
+    </ul>
+{% endblock %}
