@@ -56,16 +56,16 @@ class SyncController extends Controller
         return $this->cyclosRequest($url, $auth);
     }
 
-    protected function getStoriesCy($auth) {
+    /*protected function getStoriesCy($auth) {
         $account_list = $this->getAccountList($auth);
         $account = array_shift($account_list);
         $account_fintek_type_id = $account->type->id;
         $url = "http://192.168.2.174:8080/cyclos/api/self/accounts/$account_fintek_type_id/history";
         return $this->cyclosRequest($url, $auth);
-    }
+    }*/
 
-    protected function getStoriesMO() {
-        $url = "http://192.168.2.174/miniOrchid/app/historic/api/account/1";
+    protected function getStoriesMO($last=0) {
+        $url = "http://192.168.2.174/miniOrchid/app/historic/api/account/1?debut=$last";
         $stories = $this->curlRequest($url);
         return $stories->historics;
     }
@@ -83,6 +83,30 @@ class SyncController extends Controller
         //var_dump($response);
     }
 
+    protected function getLastSync($ciid) {
+        $doctrine = $this->getDoctrine();
+        $repository = $doctrine->getRepository(Sync::class);
+        $sync = $repository->findBy(array(
+            "ciid" => $ciid
+        ));
+        return array_shift($sync);
+
+    }
+
+    protected function setLastSync($ciid, $story_id) {
+        $today = new \DateTime();
+        $doctrine = $this->getDoctrine();
+
+        $sync = $this->getLastSync($ciid);
+
+        $sync->setLastSync($story_id);
+        $sync->setDate($today);
+
+        $em = $doctrine->getManager();
+        $em->persist($sync);
+        $em->flush();
+    }
+
     /**
      *
      * @Route("/api", name="sync_api")
@@ -97,12 +121,13 @@ class SyncController extends Controller
         $sipem->cy_id = "5544016176995673146";
         $sipem->auth = "c2lwZW06c2lwZW0=";
 
-        $orchid_stories = $this->getStoriesMO();
+        //$cyclos_stories = $this->getStoriesCy($fintek->auth);
+        $last_sync = $this->getLastSync($fintek->cy_id);
+        $orchid_stories = $this->getStoriesMO($last_sync->getLastSync());
 
         if (empty($orchid_stories))
             return $this->jsonResponse(204);
 
-        $cyclos_stories = $this->getStoriesCy($fintek->auth);
 
         foreach ($orchid_stories as $story) {
             $payment = array(
@@ -126,6 +151,11 @@ class SyncController extends Controller
                     break;
             }
         }
+        
+        if ($story->id)
+            $this->setLastSync($fintek->cy_id, $story->id);
+
+
         //die();
         return $this->jsonResponse(204);
     }

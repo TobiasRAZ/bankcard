@@ -22,6 +22,20 @@ class Sync
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="last_sync", type="string")
+     */
+    private $last_sync;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ciid", type="string", unique=true)
+     */
+    private $ciid;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
@@ -62,5 +76,28 @@ class Sync
     {
         return $this->date;
     }
-}
 
+    /**
+     * Set lastSync
+     *
+     * @param string $lastSync
+     *
+     * @return Sync
+     */
+    public function setLastSync($lastSync)
+    {
+        $this->last_sync = $lastSync;
+
+        return $this;
+    }
+
+    /**
+     * Get lastSync
+     *
+     * @return string
+     */
+    public function getLastSync()
+    {
+        return $this->last_sync;
+    }
+}
