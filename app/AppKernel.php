@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Backoffice\TpeBundle\BackofficeTpeBundle(),
             new Fintek\AgentBundle\FintekAgentBundle(),
+            new Fintek\SyncBundle\FintekSyncBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

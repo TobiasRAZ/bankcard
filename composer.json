@@ -7,7 +7,8 @@
             "AppBundle\\": "src/AppBundle",
             "Api\\CardBundle\\": "src/Api/CardBundle",
             "Backoffice\\TpeBundle\\": "src/Backoffice/TpeBundle",
-            "Fintek\\AgentBundle\\":"src/Fintek/AgentBundle"
+            "Fintek\\AgentBundle\\":"src/Fintek/AgentBundle",
+            "Fintek\\SyncBundle\\":"src/Fintek/SyncBundle"
         },
         "classmap": [
             "app/AppKernel.php",
