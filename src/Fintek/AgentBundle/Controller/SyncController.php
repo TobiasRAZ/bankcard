@@ -15,6 +15,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class SyncController extends Controller
 {
+
+    private $cyclos_api = 'http://frhb12419ds.ikexpress.com:5788/cyclos/api/';
+    private $miniOrchid = 'http://frhb12419ds.ikexpress.com:5780/miniOrchid/app.php/';
+    private $fintek_miniId = 2;
     /**
      * Lists all sync entities.
      *
@@ -52,7 +56,7 @@ class SyncController extends Controller
     }
 
     protected function getAccountList($auth) {
-        $url = 'http://192.168.2.174:8080/cyclos/api/self/accounts';
+        $url = $cyclos_api.'self/accounts';
         return $this->cyclosRequest($url, $auth);
     }
 
@@ -65,7 +69,7 @@ class SyncController extends Controller
     }*/
 
     protected function getStoriesMO($last=0) {
-        $url = "http://192.168.2.174/miniOrchid/app/historic/api/account/1?debut=$last";
+        $url = $this->miniOrchid."app/historic/api/account/".$this->fintek_miniId."?debut=$last";
         $stories = $this->curlRequest($url);
         return $stories->historics;
     }
@@ -77,10 +81,9 @@ class SyncController extends Controller
     }
 
     protected function addCyclosHistory($payment, $auth) {
-        $url = "http://192.168.2.174:8080/cyclos/api/self/payments";
+        $url = $this->cyclos_api."self/payments";
         $options[CURLOPT_POSTFIELDS] = json_encode($payment);
         $response = $this->cyclosRequest($url, $auth, "POST", $options);
-        //var_dump($response);
     }
 
     protected function getLastSync($ciid) {
@@ -98,6 +101,11 @@ class SyncController extends Controller
         $doctrine = $this->getDoctrine();
 
         $sync = $this->getLastSync($ciid);
+
+        if (!$sync) {
+            $sync = new Sync();
+            $sync->setCiid($ciid);
+        }
 
         $sync->setLastSync($story_id);
         $sync->setDate($today);
@@ -117,13 +125,16 @@ class SyncController extends Controller
         $fintek = new \stdClass;
         $sipem = new \stdClass;
         $fintek->auth = "ZmludGVrOmZpbnRlaw==";
-        $fintek->cy_id = "5516994579231450170";
-        $sipem->cy_id = "5544016176995673146";
+        $fintek->cy_id = "1044632311262315080";
+        $sipem->cy_id = "1044632311262085704";
         $sipem->auth = "c2lwZW06c2lwZW0=";
 
         //$cyclos_stories = $this->getStoriesCy($fintek->auth);
         $last_sync = $this->getLastSync($fintek->cy_id);
-        $orchid_stories = $this->getStoriesMO($last_sync->getLastSync());
+        if ($last_sync)
+            $orchid_stories = $this->getStoriesMO($last_sync->getLastSync());
+        else
+            $orchid_stories = $this->getStoriesMO();
 
         if (empty($orchid_stories))
             return $this->jsonResponse(204);
@@ -138,7 +149,6 @@ class SyncController extends Controller
                     "orchidHistoric" => $story->id
                 )
             );
-            //var_dump($story->id);
             switch ($story->libelle) {
                 case 'deposit':
                     $payment["subject"] = $fintek->cy_id;

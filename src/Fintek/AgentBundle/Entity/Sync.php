@@ -100,4 +100,28 @@ class Sync
     {
         return $this->last_sync;
     }
+
+    /**
+     * Set ciid
+     *
+     * @param string $ciid
+     *
+     * @return Sync
+     */
+    public function setCiid($ciid)
+    {
+        $this->ciid = $ciid;
+
+        return $this;
+    }
+
+    /**
+     * Get ciid
+     *
+     * @return string
+     */
+    public function getCiid()
+    {
+        return $this->ciid;
+    }
 }

@@ -27,6 +27,7 @@ class AgentController extends Controller
             "agents" => $_agents
         ), $status);
         $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
         return $response;
     }
 
